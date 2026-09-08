@@ -22,7 +22,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-<style>body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}
+  /* Contribution form: preserve the existing amber-and-charcoal design. */
+  .contribution-panel .field .k{ font-size: 14px; letter-spacing: .06em; }
+  .wallet-address{ display: block; margin-top: 10px; font-family: var(--mono); font-size: 14px;
+    line-height: 1.6; overflow-wrap: anywhere; white-space: normal; }
+  .contribution-panel .field a, .receipt-link{ font-size: 14px; color: var(--amber); }
+  #contribution-summary{ font-size: 16px; line-height: 1.6; }
+  .contribution-consent{ display: flex; align-items: flex-start; gap: 12px;
+    padding: 16px 0; font-size: 14px; line-height: 1.6; cursor: pointer; }
+  .contribution-consent input{ flex: 0 0 auto; width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--amber); }
+  .contribution-panel .swap-status{ font-size: 14px; overflow-wrap: anywhere; }
+  .contribution-panel .swap-foot{ font-size: 14px; line-height: 1.6; text-align: left; }
+  .receipt-link{ display: block; margin: 16px 0; overflow-wrap: anywhere; }
+  .contribution-panel [hidden]{ display: none; }
+  .contribution-panel :focus-visible{ outline: 2px solid var(--amber); outline-offset: 4px; }
+</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -490,20 +505,20 @@
   <span class="sep">/</span>
   <span class="meta">BASE · ERC-20</span>
   <span class="date">SEPT 9</span>
-  <a class="ask" href="#airdrop">Who qualifies for the airdrop?</a>
-  <a class="btn" href="#buy">Buy</a>
+  <a class="ask" href="#airdrop">How does distribution work?</a>
+  <a class="btn" href="#buy">Contribute</a>
 </div>
 
 <!-- ══ TICKER STRIP ══ -->
 <div class="strip" aria-hidden="true">
   <div class="strip-inner">
     <span>Six years of headlines <b>·</b> One hard drive <b>·</b> Zero people who saw it</span>
-    <span>Airdrop criteria <b>soon</b> <b>·</b> CA <b>soon</b> <b>·</b> Socials <b>soon</b></span>
-    <span>Swap on-site <b>·</b> Permit2 <b>·</b> No blanket approvals</span>
+    <span>Token distribution <b>later</b> <b>·</b> CA <b>soon</b> <b>·</b> Socials <b>soon</b></span>
+    <span>Your amount <b>·</b> Direct contribution <b>·</b> Tokens later</span>
     <span>September 9 <b>·</b> Base <b>·</b> Built on Coinbase's L2</span>
     <span>Six years of headlines <b>·</b> One hard drive <b>·</b> Zero people who saw it</span>
-    <span>Airdrop criteria <b>soon</b> <b>·</b> CA <b>soon</b> <b>·</b> Socials <b>soon</b></span>
-    <span>Swap on-site <b>·</b> Permit2 <b>·</b> No blanket approvals</span>
+    <span>Token distribution <b>later</b> <b>·</b> CA <b>soon</b> <b>·</b> Socials <b>soon</b></span>
+    <span>Your amount <b>·</b> Direct contribution <b>·</b> Tokens later</span>
     <span>September 9 <b>·</b> Base <b>·</b> Built on Coinbase's L2</span>
   </div>
 </div>
@@ -511,7 +526,7 @@
 <!-- ══ HERO ══ -->
 <section style="border-top:0">
   <div class="wrap hero">
-    <div class="label eyebrow">Base · ERC-20 · Fair launch</div>
+    <div class="label eyebrow">Base · Token planned · Contributions</div>
     <h1 class="wordmark"><span class="dollar">$</span>LAPTOP</h1>
     <p class="dateline">SEPTEMBER 9</p>
 
@@ -522,7 +537,7 @@
           A repair shop in Delaware, an FBI subpoena, a front page, two platforms throttling a link,
           fifty-one signatures, three forensic analyses and a federal trial — over a hard drive that
           spent six years being described and never once being handed over. $LAPTOP is a memecoin
-          about that, on Base. No utility, no promises: a contract, a chart, and a story everyone
+          about that, planned on Base. The token is not created yet: a project, a planned launch, and a story everyone
           already knows.
         </p>
         <div class="cd" id="countdown" aria-live="off">
@@ -532,8 +547,8 @@
           <div class="cd-cell"><div class="cd-n" id="cd-s">—</div><div class="cd-k">Seconds</div></div>
         </div>
         <div class="hero-cta">
-          <a class="btn" href="#buy">Buy $LAPTOP</a>
-          <a class="btn ghost" href="#airdrop">Check the airdrop</a>
+          <a class="btn" href="#buy">Contribute</a>
+          <a class="btn ghost" href="#airdrop">Read distribution terms</a>
           <a class="btn ghost" href="#story">Read the file</a>
         </div>
       </div>
@@ -560,7 +575,7 @@
     <div class="ca">
       <span class="label">CA</span>
       <!-- EDIT: paste your Base contract address here on launch day -->
-      <code id="ca-text">soon™ — contract drops September 9, no presale, no whitelist</code>
+      <code id="ca-text">not created yet — planned launch September 9</code>
       <button class="copy" id="copy-btn" type="button">Copy</button>
     </div>
   </div>
@@ -645,86 +660,29 @@
   </div>
 </section>
 
-<!-- ══ AIRDROP ══ -->
+<!-- ══ DISTRIBUTION ══ -->
 <section id="airdrop" class="airdrop-sec">
   <div class="wrap sec">
-    <div class="label">Distribution</div>
-    <h2>Part of it goes to<br>people who already lost.</h2>
+    <div class="label">Later distribution</div>
+    <h2>The token comes later.</h2>
     <p class="sec-intro">
-      Every cycle ends the same way: a headline token, a green candle, and a wallet full of
-      people who bought the top and never got a thing. A slice of $LAPTOP is going back to
-      exactly those wallets. Here's what will be checked.
+      $LAPTOP has not been created yet. The organizer plans to distribute tokens manually
+      after launch to contributing wallets, and will decide the amount at that time.
     </p>
-
     <details class="drop">
       <summary>
-        <span class="drop-word">AIRDROP</span>
-        <span class="drop-cta">Check if you qualify</span>
+        <span class="drop-word">HOW IT WORKS</span>
+        <span class="drop-cta">Read before contributing</span>
       </summary>
       <div class="drop-body">
-        <!-- EDIT: your criteria — publish only what you'll actually honour -->
         <ol class="crit">
-          <li>
-            <span class="i">01</span>
-            <div>
-              <h3>You're down on $TRUMP</h3>
-              <p>The original headline coin, down roughly 97% from its peak. Submit the Solana wallet that holds it and the loss is checked on-chain.</p>
-            </div>
-            <span class="tba">Snapshot soon</span>
-          </li>
-          <li>
-            <span class="i">02</span>
-            <div>
-              <h3>You're down on the other LAPTOP</h3>
-              <p>Same chain, same day, worse entry. Losses on Hunter Biden's token are eligible too.</p>
-            </div>
-            <span class="tba">Snapshot soon</span>
-          </li>
-          <li>
-            <span class="i">03</span>
-            <div>
-              <h3>You bought in the first hour</h3>
-              <p>Wallets that were in before there was a chart to look at.</p>
-            </div>
-            <span class="tba">Block soon</span>
-          </li>
-          <li>
-            <span class="i">04</span>
-            <div>
-              <h3>You never sold</h3>
-              <p>Held from your first buy through to the snapshot. No partial exits, no round trips.</p>
-            </div>
-            <span class="tba">Snapshot soon</span>
-          </li>
-          <li>
-            <span class="i">05</span>
-            <div>
-              <h3>You showed up</h3>
-              <p>Posted, memed and shilled before anyone was being paid to. Manually reviewed, no bots.</p>
-            </div>
-            <span class="tba">Criteria soon</span>
-          </li>
+          <li><span class="i">01</span><div><h3>You choose what to send</h3><p>The contribution goes directly to the organizer's wallet. It is a payment now, not a free eligibility check.</p></div></li>
+          <li><span class="i">02</span><div><h3>The amount of tokens is not fixed</h3><p>No token price, exchange rate or allocation is promised by the contribution form. The organizer decides the later distribution.</p></div></li>
+          <li><span class="i">03</span><div><h3>Keep your wallet and receipt</h3><p>Your confirmed transfer records the sending wallet, recipient and amount on Base. Use a wallet you control so the organizer can identify it for the later distribution.</p></div></li>
         </ol>
-
-        <div class="drop-connect">
-          <div class="dc-copy">
-            <h3>Check this wallet</h3>
-            <p>Connects read-only. No approval, no allowance, no token permission — the check reads public on-chain history and nothing else.</p>
-          </div>
-          <div class="dc-action">
-            <button class="btn" id="drop-connect-btn" type="button">Connect wallet</button>
-            <div class="dc-status" id="drop-status">Nothing is signed and nothing is moved.</div>
-          </div>
-        </div>
-
-        <p class="drop-note">
-          <strong>Nothing is locked in yet.</strong> Snapshot blocks, the eligible amount and the
-          checker all go live after launch — until then no allocation is promised or owed to any
-          wallet, and buying now is not an entitlement to anything. Criteria may change.
-          Eligibility is read from public on-chain data: <strong>no wallet connection and no
-          signature is ever required to check or claim</strong>. Any site asking you to sign a
-          message to "verify" this airdrop is stealing from you.
-        </p>
+        <p class="drop-note"><strong>Know what you are confirming.</strong> Connecting a wallet sends nothing.
+          Pressing the send button asks your wallet to confirm a payment of the amount you entered.
+          No tokens are delivered automatically by that payment, and this site cannot undo a confirmed transfer.</p>
       </div>
     </details>
   </div>
@@ -736,8 +694,8 @@
     <div class="label">The token</div>
     <h2>Nothing hidden,<br>because there's nothing to hide.</h2>
     <p class="sec-intro">
-      A plain ERC-20 on Base. Every claim below is a thing you can read off the contract
-      yourself — and should, before you send anything.
+      A token is planned on Base. Its contract has not been created yet.
+      Supply, fees and permissions will only be verifiable after the contract is published.
     </p>
 
     <div class="facts">
@@ -749,13 +707,13 @@
       </div>
       <div class="fact">
         <div class="k">Buy / sell tax</div>
-        <div class="v">0%</div>
-        <p>No transfer fee written into the contract. Read it yourself.</p>
+        <div class="v sm">NOT SET YET</div>
+        <p>Fees will be verifiable after the token contract is published.</p>
       </div>
       <div class="fact">
         <div class="k">Supply</div>
         <div class="v sm">SET AT LAUNCH</div>
-        <p>Fixed at deploy, no mint function afterwards.</p>
+        <p>Supply and any minting permissions are not confirmed yet.</p>
       </div>
       <div class="fact">
         <div class="k">Liquidity</div>
@@ -783,7 +741,7 @@
       </div>
       <div class="v-row">
         <div class="v-k">Holder distribution</div>
-        <p class="v-p">Every wallet, including mine and everyone I know, buys on the open market at the same price as you. Look at the concentration before you size a position.</p>
+        <p class="v-p">The organizer will decide the manual distribution after launch. Contributions do not have a fixed token price or guaranteed allocation.</p>
         <a class="v-link" aria-disabled="true">Holders <span class="soon">Sept 9</span></a>
       </div>
     </div>
@@ -792,83 +750,56 @@
   </div>
 </section>
 
-<!-- ══ SWAP ══ -->
+<!-- ══ CONTRIBUTION ══ -->
 <section id="buy">
   <div class="wrap sec">
-    <div class="label">Swap</div>
-    <h2>Buy it right here.</h2>
+    <div class="label">Contribute · Base network</div>
+    <h2>You choose the amount.</h2>
     <p class="sec-intro">
-      The swap is routed by the 0x aggregator across every DEX on Base and executed from your
-      own wallet. Nothing here is financial advice, and nothing on-chain is reversible.
+      Send ETH or USDC directly to the organizer's wallet on Base.
+      The token has not been created yet. This payment does not deliver tokens now.
     </p>
-
     <div class="swap">
       <div class="swap-copy">
-        <h3>Connect. Sign. Swap.</h3>
-        <p>
-          Buying with USDC uses <b>Permit2</b> — the same approval contract Uniswap's own
-          interface uses. It replaces the old habit of granting an unlimited allowance to every
-          new contract you touch.
-        </p>
+        <h3>Send now. Distribution later.</h3>
         <ol>
-          <li><span><b>One approval, ever.</b> You approve USDC to Permit2 a single time. Every future swap on any Permit2 app reuses it.</span></li>
-          <li><span><b>The signature is scoped.</b> It names the exact amount, the exact spender and an expiry — not a blank cheque over your balance.</span></li>
-          <li><span><b>Your wallet builds the transaction.</b> This site never holds keys and never moves anything on its own.</span></li>
+          <li><span><b>Choose your contribution.</b> Enter exactly how much ETH or USDC you want to send.</span></li>
+          <li><span><b>Review the recipient.</b> Your wallet shows the transfer and network fee before you confirm it.</span></li>
+          <li><span><b>Keep your receipt.</b> The organizer plans to send $LAPTOP manually after launch. The organizer will decide the amount later; there is no fixed rate or guaranteed allocation.</span></li>
         </ol>
-        <p style="font-size:13.5px">
-          Paying with ETH skips Permit2 entirely — native ETH needs no approval at all.
-        </p>
+        <p>Only confirm a payment you intend to make. A confirmed transfer cannot be undone by this site.</p>
       </div>
-
-      <div class="swap-panel">
+      <div class="swap-panel contribution-panel">
         <div class="field">
-          <span class="k">You pay</span>
+          <label class="k" for="amount">Amount to send now</label>
           <div class="field-row">
-            <input id="amount" type="text" inputmode="decimal" placeholder="0.0" aria-label="Amount to spend">
-            <select id="sell-token" aria-label="Token to spend">
+            <input id="amount" type="text" inputmode="decimal" placeholder="0.0" autocomplete="off" aria-describedby="contribution-summary">
+            <select id="sell-token" aria-label="Currency to send">
               <option value="eth">ETH</option>
               <option value="usdc">USDC</option>
             </select>
           </div>
         </div>
         <div class="field">
-          <span class="k">You receive (estimated)</span>
-          <div class="out idle" id="quote-out">—</div>
+          <span class="k">Recipient · Base network</span>
+          <code class="wallet-address" id="contribution-recipient">Not set — contributions are closed</code>
+          <a id="contribution-wallet-link" target="_blank" rel="noopener noreferrer" hidden>View recipient on Basescan</a>
         </div>
-        <div class="swap-status" id="swap-status">Coming soon.</div>
-        <button class="btn" id="swap-btn" type="button">Coming soon</button>
-        <button class="btn ghost" id="watch-btn" type="button">Add $LAPTOP to wallet</button>
-        <p class="swap-foot">
-          Routing by 0x · Approvals via
-          <a href="https://api-docs.uniswap.org/guides/permit2" target="_blank" rel="noopener noreferrer">Permit2</a>
-          · Always check the contract address first
-        </p>
-      </div>
-    </div>
-
-    <div class="label" style="margin-top:56px">Or do it manually</div>
-    <h2>Four steps.</h2>
-
-    <div class="steps">
-      <div class="step">
-        <div class="n">Step 01</div>
-        <h3>Get a wallet</h3>
-        <p>MetaMask, Rabby or Coinbase Wallet. Write the seed phrase on paper and never type it into a website, including this one.</p>
-      </div>
-      <div class="step">
-        <div class="n">Step 02</div>
-        <h3>Fund it on Base</h3>
-        <p>Buy ETH and withdraw it to the Base network, or bridge from Ethereum. Keep a little for gas.</p>
-      </div>
-      <div class="step">
-        <div class="n">Step 03</div>
-        <h3>Check the address</h3>
-        <p>Copy the contract from the top of this page and compare every character. Tickers repeat; addresses don't.</p>
-      </div>
-      <div class="step">
-        <div class="n">Step 04</div>
-        <h3>Swap on Uniswap</h3>
-        <p>Paste the address, set your slippage, confirm. Then close the tab and go outside.</p>
+        <div class="field">
+          <span class="k">Your sending wallet</span>
+          <code class="wallet-address" id="contribution-sender">Not connected</code>
+        </div>
+        <p id="contribution-summary">Choose how much to send. The network fee is shown separately in your wallet.</p>
+        <label class="contribution-consent">
+          <input id="contribution-terms" type="checkbox">
+          <span>I understand that I am sending funds to the organizer now. Tokens are planned to be sent manually after launch. The organizer decides the amount later, with no fixed rate or guaranteed allocation.</span>
+        </label>
+        <div class="swap-status" id="contribution-status" role="status" aria-live="polite">Contributions are not open yet.</div>
+        <button class="btn" id="contribute-btn" type="button" disabled>Contributions not open yet</button>
+        <a class="receipt-link" id="contribution-receipt" target="_blank" rel="noopener noreferrer" hidden>View transfer receipt on Basescan</a>
+        <button class="btn ghost" id="contribute-again" type="button" hidden>Make another contribution</button>
+        <p class="swap-foot">You approve each individual payment in your wallet. There is no ongoing permission to spend your funds.</p>
+        <noscript><p>Enable JavaScript to use the contribution form. No payment can be sent from this page while it is disabled.</p></noscript>
       </div>
     </div>
   </div>
@@ -900,10 +831,10 @@
 <section class="band">
   <div class="wrap band-in">
     <div>
-      <h2>Still think you're not eligible?</h2>
-      <p>Five criteria, and the first two only require having lost money on a memecoin — which, statistically, you have.</p>
+      <h2>Read the terms before sending.</h2>
+      <p>Your contribution is sent now. Token amounts are decided by the organizer later.</p>
     </div>
-    <a class="btn" href="#airdrop">Check the airdrop</a>
+    <a class="btn" href="#airdrop">Read distribution terms</a>
   </div>
 </section>
 
@@ -919,8 +850,8 @@
         <p>No. A separate LAPTOP token launches on Base on September 9, 2026 with him on the founding team — the same chain and the same day as this one. This project is independent, deployed from a different wallet, with no affiliation to him or to that team. Two contracts will share this ticker: the address is the only thing that tells them apart, so check it before every transaction.</p>
       </details>
       <details class="q">
-        <summary>What is Permit2 and why does the swap use it?</summary>
-        <p>Permit2 is a token-approval contract from Uniswap. Instead of granting a fresh allowance to every contract you trade with, you approve Permit2 once and then sign a scoped, expiring permission for each swap. It's what Uniswap's own interface runs on. If any site ever asks you to sign a permit that isn't attached to a swap you're executing right then — to "claim", "verify" or "check eligibility" — close the tab, because that signature lets someone move your tokens.</p>
+        <summary>What happens when I contribute?</summary>
+        <p>You choose an amount of ETH or USDC on Base and confirm a direct payment to the displayed organizer wallet. No tokens are sent to you by that payment. The organizer plans a manual distribution after launch and decides token amounts later, without a fixed rate or guaranteed allocation.</p>
       </details>
       <details class="q">
         <summary>What's the utility?</summary>
@@ -928,11 +859,11 @@
       </details>
       <details class="q">
         <summary>Who holds the supply?</summary>
-        <p>Whoever buys it. There's no presale and no reserved round — whatever gets set aside for the airdrop and whatever I hold is bought on the open market like yours, and all of it is visible on Basescan.</p>
+        <p>The token has not been created yet. Its supply and holder distribution are not known. After launch, check the published contract and transfers on Basescan.</p>
       </details>
       <details class="q">
         <summary>Can I lose money?</summary>
-        <p>All of it, fast, and most people who buy memecoins do. $TRUMP peaked near $15 billion in market cap and now trades around $600 million — down about 97% — and that one had a sitting president attached. Buy an amount you can write off completely, or don't buy.</p>
+        <p>All of it, fast, and most people who buy memecoins do. $TRUMP peaked near $15 billion in market cap and now trades around $600 million — down about 97% — and that one had a sitting president attached. Contribute only an amount you can afford to lose. No token allocation or return is guaranteed.</p>
       </details>
     </div>
   </div>
@@ -945,20 +876,20 @@
     <div class="foot-grid">
       <p class="risk">
         <strong>The part people skip.</strong> $LAPTOP is a meme token with no intrinsic value,
-        no utility and no expectation of return. It is not a security or an investment product,
-        and nothing on this page is financial, legal or tax advice. This is an independent
+        no utility and no guaranteed return. Contributions go to the organizer now; token distribution
+        is planned for later and its amount is not fixed. Nothing on this page is financial, legal or tax advice. This is an independent
         community project: it is <strong>not affiliated with, endorsed by or connected to
         Hunter Biden, the Biden family, or the separate LAPTOP token launched on Base on
         September 9, 2026</strong>, and all names and events are referenced as public-record
         commentary. Crypto assets are volatile and largely unregulated — you can lose everything
-        you put in. Verify the contract address yourself before you transact.
+        you put in. Check the receiving wallet and amount before confirming a contribution.
       </p>
       <div class="links">
         <!-- EDIT: your real links -->
         <a aria-disabled="true">X / Twitter <span class="soon">Soon</span></a>
         <a aria-disabled="true">Telegram <span class="soon">Soon</span></a>
         <a aria-disabled="true">Basescan <span class="soon">Sept 9</span></a>
-        <a href="#airdrop">Airdrop <span class="soon">Soon</span></a>
+        <a href="#airdrop">Distribution terms</a>
       </div>
     </div>
   </div>
@@ -966,282 +897,187 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
 <script>
-/* ═══════════════════════════════════════════════════════════════════════
-   SWAP — 0x Swap API v2, Permit2 flow, Base (chainId 8453)
-   ─────────────────────────────────────────────────────────────────────
-   BEFORE THIS WORKS YOU MUST:
-   1. Set CONFIG.token to your $LAPTOP contract address on Base.
-   2. Stand up CONFIG.apiBase as a server-side proxy on your own domain
-      that forwards to https://api.0x.org and adds the headers
-        0x-api-key: <your key>      0x-version: v2
-      Never put the 0x API key in this file — it ships to every visitor.
-      A ~15-line serverless function is enough (Vercel/Cloudflare/Netlify).
-   3. Deploy on your own domain. This preview host blocks outbound
-      requests, so the panel will always fall back to the manual steps here.
-   ═══════════════════════════════════════════════════════════════════════ */
+/* CONTRIBUTIONS_START
+   Direct, user-confirmed transfers on Base. Set only the public receiving
+   address below. No private keys, approvals, permits, swap API or token
+   distribution are used here. An empty recipient keeps payments disabled.
+*/
 (function () {
   'use strict';
-
-  var CONFIG = {
-    chainId: 8453,                 // Base
-    token: '',                     // EDIT: $LAPTOP contract on Base
-    tokenDecimals: 18,             // EDIT if your token isn't 18 decimals
-    apiBase: '/api/0x',            // EDIT: your same-origin proxy to api.0x.org
-    slippageBps: 300               // 3%
-  };
-
-  var PERMIT2 = '0x000000000022D473030F116dDEE9F6B43aC78BA3';
-  var NATIVE  = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
-  var USDC    = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'; // USDC on Base
-  var ERC20_ABI = [
-    'function allowance(address,address) view returns (uint256)',
-    'function approve(address,uint256) returns (bool)'
-  ];
-
+  var CONTRIBUTIONS = Object.freeze({
+    recipient: '', // REQUIRED: organizer's public wallet address on Base
+    chainId: 8453,
+    usdc: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+  });
   var $ = function (id) { return document.getElementById(id); };
-  var amountEl = $('amount'), sellEl = $('sell-token'), outEl = $('quote-out'),
-      statusEl = $('swap-status'), btn = $('swap-btn');
-  if (!btn) return;
+  var amountEl = $('amount'), assetEl = $('sell-token'), termsEl = $('contribution-terms');
+  var btn = $('contribute-btn'), statusEl = $('contribution-status');
+  var receiptEl = $('contribution-receipt'), againEl = $('contribute-again');
+  if (!btn || !amountEl || !assetEl || !termsEl) return;
 
-  var provider = null, signer = null, account = null, quote = null, quoting = null;
-
-  function say(msg, kind) {
-    statusEl.textContent = msg;
+  var lib = window.ethers, recipient = null, account = null, signer = null;
+  var busy = false, submitted = false;
+  function say(message, kind) {
+    statusEl.textContent = message;
     statusEl.className = 'swap-status' + (kind ? ' ' + kind : '');
   }
-
-  function sellMeta() {
-    return sellEl.value === 'usdc'
-      ? { address: USDC, decimals: 6, symbol: 'USDC' }
-      : { address: NATIVE, decimals: 18, symbol: 'ETH' };
+  function amount() {
+    var symbol = assetEl.value === 'usdc' ? 'USDC' : 'ETH';
+    if (assetEl.value !== 'eth' && assetEl.value !== 'usdc') throw new Error('Choose ETH or USDC.');
+    var decimals = symbol === 'USDC' ? 6 : 18;
+    var raw = amountEl.value.trim().replace(',', '.');
+    if (!/^(?:\d+|\d*\.\d+)$/.test(raw)) throw new Error('Enter the amount you want to send.');
+    if ((raw.split('.')[1] || '').length > decimals) throw new Error('Use no more than ' + decimals + ' decimal places for ' + symbol + '.');
+    var units = lib.parseUnits(raw, decimals);
+    if (units <= 0n || units > lib.MaxUint256) throw new Error('Enter an amount greater than zero within your wallet balance.');
+    return { units: units, symbol: symbol, display: lib.formatUnits(units, decimals), asset: assetEl.value };
   }
-
-  function configured() {
-    return Boolean(CONFIG.token) && typeof window.ethers !== 'undefined';
+  function render() {
+    var payment = null;
+    try { if (lib) payment = amount(); } catch (_) {}
+    $('contribution-summary').textContent = payment
+      ? payment.display + ' ' + payment.symbol + ' to the organizer, plus the network fee.'
+      : 'Choose how much to send. The network fee is shown separately in your wallet.';
+    amountEl.disabled = busy || submitted;
+    assetEl.disabled = busy || submitted;
+    termsEl.disabled = busy || submitted;
+    if (submitted) { btn.disabled = true; return; }
+    if (busy) { btn.disabled = true; return; }
+    btn.textContent = !recipient ? 'Contributions not open yet'
+      : !account ? 'Connect wallet'
+      : payment ? 'Send ' + payment.display + ' ' + payment.symbol
+      : 'Enter an amount';
+    btn.disabled = !recipient || !lib || Boolean(account && (!payment || !termsEl.checked));
   }
-
+  function showReceipt(hash) {
+    if (!/^0x[0-9a-fA-F]{64}$/.test(hash || '')) return;
+    receiptEl.href = 'https://basescan.org/tx/' + hash;
+    receiptEl.textContent = 'View transfer receipt on Basescan';
+    receiptEl.hidden = false;
+  }
+  function finish(payment, hash) {
+    showReceipt(hash);
+    btn.textContent = 'Contribution sent';
+    say(payment.display + ' ' + payment.symbol + ' sent to the organizer. No $LAPTOP tokens were delivered by this payment. Keep the receipt for the later manual distribution.', 'ok');
+    againEl.hidden = false;
+  }
   async function connect() {
-    if (!window.ethereum) {
-      say('No wallet detected. Install MetaMask, Rabby or Coinbase Wallet, or use the manual steps below.', 'err');
-      return false;
+    if (!window.ethereum) throw new Error('Open this page in your wallet browser, or enable your wallet extension.');
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    var chain = await window.ethereum.request({ method: 'eth_chainId' });
+    if (BigInt(chain) !== BigInt(CONTRIBUTIONS.chainId)) {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain', params: [{ chainId: '0x2105' }]
+      });
     }
-    provider = new ethers.BrowserProvider(window.ethereum);
-    await provider.send('eth_requestAccounts', []);
-    var net = await provider.getNetwork();
-    if (Number(net.chainId) !== CONFIG.chainId) {
-      try {
-        await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0x' + CONFIG.chainId.toString(16) }]
-        });
-        provider = new ethers.BrowserProvider(window.ethereum);
-      } catch (e) {
-        say('Switch your wallet to Base and try again.', 'err');
-        return false;
-      }
-    }
+    chain = await window.ethereum.request({ method: 'eth_chainId' });
+    if (BigInt(chain) !== BigInt(CONTRIBUTIONS.chainId)) throw new Error('Switch your wallet to Base to continue.');
+    var provider = new lib.BrowserProvider(window.ethereum);
     signer = await provider.getSigner();
     account = await signer.getAddress();
-    btn.textContent = 'Buy $LAPTOP';
-    say('Connected: ' + account.slice(0, 6) + '…' + account.slice(-4) + ' on Base.', 'ok');
-    refreshQuote();
-    return true;
+    $('contribution-sender').textContent = account;
+    say('Wallet connected. Review the recipient, amount and distribution terms before sending.', 'ok');
   }
-
-  async function fetchQuote() {
-    var raw = (amountEl.value || '').trim().replace(',', '.');
-    if (!raw || isNaN(Number(raw)) || Number(raw) <= 0) return null;
-    var meta = sellMeta();
-    var params = new URLSearchParams({
-      chainId: String(CONFIG.chainId),
-      sellToken: meta.address,
-      buyToken: CONFIG.token,
-      sellAmount: ethers.parseUnits(raw, meta.decimals).toString(),
-      slippageBps: String(CONFIG.slippageBps)
-    });
-    if (account) params.set('taker', account);
-    var path = account ? '/swap/permit2/quote?' : '/swap/permit2/price?';
-    var res = await fetch(CONFIG.apiBase + path + params.toString(), { headers: { accept: 'application/json' } });
-    if (!res.ok) throw new Error('Quote failed (' + res.status + ')');
-    return res.json();
-  }
-
-  function refreshQuote() {
-    clearTimeout(quoting);
-    quoting = setTimeout(async function () {
-      if (!configured()) return;
-      try {
-        var q = await fetchQuote();
-        if (!q) { quote = null; outEl.textContent = '—'; outEl.classList.add('idle'); return; }
-        quote = q;
-        if (q.buyAmount) {
-          outEl.textContent = Number(ethers.formatUnits(q.buyAmount, CONFIG.tokenDecimals))
-            .toLocaleString('en-US', { maximumFractionDigits: 0 }) + ' $LAPTOP';
-          outEl.classList.remove('idle');
-        }
-        if (account) say('Quote ready. Review the amount, then confirm in your wallet.', 'ok');
-      } catch (e) {
-        outEl.textContent = '—'; outEl.classList.add('idle');
-        say('Could not fetch a quote right now. Use the manual steps below.', 'err');
-      }
-    }, 400);
-  }
-
-  async function ensurePermit2Allowance() {
-    var meta = sellMeta();
-    if (meta.address === NATIVE) return true;           // native ETH needs no approval
-    var issue   = quote && quote.issues && quote.issues.allowance;
-    var spender = (issue && issue.spender) || PERMIT2;
-    // Compare against the amount this swap actually needs. A leftover dust
-    // allowance from an earlier approval is not enough, and letting it pass
-    // here fails the swap only after the user has already signed.
-    var needed  = quote && quote.sellAmount ? BigInt(quote.sellAmount) : 0n;
-    var erc20   = new ethers.Contract(meta.address, ERC20_ABI, signer);
-    var current = await erc20.allowance(account, spender);
-    if (current > 0n && current >= needed) return true;
-    say('Approving ' + meta.symbol + ' to Permit2 — this is a one-time step.', 'ok');
-    var tx = await erc20.approve(spender, ethers.MaxUint256);
-    await tx.wait();
-    return true;
-  }
-
-  async function swap() {
-    if (!quote || !quote.transaction) { say('Get a quote first.', 'err'); return; }
-    await ensurePermit2Allowance();
-
-    var data = quote.transaction.data;
-
-    // Permit2: sign the typed data 0x returns, then append <32-byte length><signature>
-    if (quote.permit2 && quote.permit2.eip712) {
-      say('Signing the Permit2 message — check the amount and spender in your wallet.', 'ok');
-      var types = Object.assign({}, quote.permit2.eip712.types);
-      delete types.EIP712Domain;
-      var sig = await signer.signTypedData(
-        quote.permit2.eip712.domain, types, quote.permit2.eip712.message
-      );
-      var len = ethers.zeroPadValue(ethers.toBeHex(ethers.dataLength(sig)), 32);
-      data = ethers.concat([data, len, sig]);
-    }
-
-    say('Confirm the swap in your wallet.', 'ok');
-    var sent = await signer.sendTransaction({
-      to: quote.transaction.to,
-      data: data,
-      value: quote.transaction.value ? BigInt(quote.transaction.value) : 0n,
-      gasLimit: quote.transaction.gas ? (BigInt(quote.transaction.gas) * 12n) / 10n : undefined
-    });
-    say('Submitted. Waiting for confirmation…', 'ok');
-    var receipt = await sent.wait();
-    say('Done. Tx ' + receipt.hash.slice(0, 10) + '… — add the contract to your wallet to see the balance.', 'ok');
-  }
-
   btn.addEventListener('click', async function () {
-    btn.disabled = true;
+    if (busy || submitted || !recipient || !lib) return;
+    var payment = null;
+    busy = true;
+    render();
     try {
-      if (!configured()) {
-        say('Coming soon.', 'err');
-      } else if (!account) {
-        await connect();
+      if (!account) { await connect(); return; }
+      if (!termsEl.checked) throw new Error('Read and accept the distribution terms before sending.');
+      payment = amount();
+      var chain = await window.ethereum.request({ method: 'eth_chainId' });
+      var accounts = await window.ethereum.request({ method: 'eth_accounts' });
+      if (BigInt(chain) !== BigInt(CONTRIBUTIONS.chainId) ||
+          !accounts[0] || accounts[0].toLowerCase() !== account.toLowerCase()) {
+        account = null; signer = null; termsEl.checked = false;
+        $('contribution-sender').textContent = 'Reconnect your wallet';
+        throw new Error('Your wallet or network changed. Reconnect and review the payment again.');
+      }
+      say('Confirm sending ' + payment.display + ' ' + payment.symbol + ' to ' + recipient + ' on Base in your wallet. The network fee is additional.', 'ok');
+      var tx;
+      if (payment.asset === 'eth') {
+        tx = await signer.sendTransaction({ to: recipient, value: payment.units, chainId: CONTRIBUTIONS.chainId });
       } else {
-        await swap();
+        var usdc = new lib.Contract(CONTRIBUTIONS.usdc, [
+          'function transfer(address to, uint256 amount) returns (bool)'
+        ], signer);
+        tx = await usdc.transfer(recipient, payment.units, { chainId: CONTRIBUTIONS.chainId });
       }
+      submitted = true;
+      btn.textContent = 'Transfer submitted';
+      showReceipt(tx.hash);
+      say('Transfer submitted. Waiting for confirmation — do not send it again.', 'ok');
+      var receipt = await tx.wait(1, 120000);
+      if (!receipt || Number(receipt.status) !== 1) throw new Error('Transfer not confirmed.');
+      finish(payment, receipt.hash || tx.hash);
     } catch (e) {
-      var m = (e && (e.shortMessage || e.message)) || 'Something went wrong.';
-      say(m.length > 160 ? m.slice(0, 160) + '…' : m, 'err');
-    } finally {
-      btn.disabled = false;
-    }
+      if (submitted) {
+        if (e.code === 'TRANSACTION_REPLACED' && e.reason === 'repriced' && !e.cancelled &&
+            e.receipt && Number(e.receipt.status) === 1) {
+          finish(payment, e.receipt.hash);
+        } else {
+          say('A transfer was submitted, but its completion could not be confirmed here. Open the receipt and check your wallet before sending again.', 'err');
+          btn.textContent = 'Check the transfer receipt';
+        }
+      } else if (e.code === 'ACTION_REJECTED' || e.code === 4001 ||
+                 (e.info && e.info.error && e.info.error.code === 4001)) {
+        say('Request cancelled in your wallet. No payment was submitted by this page.', 'err');
+      } else if (e.code === 'INSUFFICIENT_FUNDS') {
+        say('Not enough funds. You also need ETH on Base for the network fee.', 'err');
+      } else {
+        var message = e.shortMessage || e.message || 'Could not prepare the payment. Please try again.';
+        say(message.slice(0, 240), 'err');
+      }
+    } finally { busy = false; render(); }
   });
-
-  amountEl.addEventListener('input', refreshQuote);
-  sellEl.addEventListener('change', refreshQuote);
-
-  /* one-click "add token to wallet" (EIP-747) */
-  var watch = $('watch-btn');
-  if (watch) {
-    watch.addEventListener('click', async function () {
-      if (!CONFIG.token) { say('The contract address goes live on September 9.', 'err'); return; }
-      if (!window.ethereum) { say('No wallet detected.', 'err'); return; }
-      try {
-        await window.ethereum.request({
-          method: 'wallet_watchAsset',
-          params: { type: 'ERC20', options: {
-            address: CONFIG.token, symbol: 'LAPTOP', decimals: CONFIG.tokenDecimals
-          } }
-        });
-        say('$LAPTOP added to your wallet.', 'ok');
-      } catch (e) { say('Could not add the token — you can paste the address manually.', 'err'); }
+  [amountEl, assetEl, termsEl].forEach(function (el) {
+    el.addEventListener(el === amountEl ? 'input' : 'change', function () {
+      if (busy || submitted) return;
+      if (el !== termsEl) termsEl.checked = false;
+      render();
     });
-  }
-
-  if (!configured()) {
-    btn.textContent = 'Coming soon';
-    say('Coming soon.');
-  }
-})();
-
-/* ── airdrop: read-only wallet check ──────────────────────────────────
-   Connects and reads the address. It requests NO approval and NO token
-   permission: eligibility is computed from public on-chain history.
-   Optional: set PROVE=true to also ask for a plain personal_sign of a
-   human-readable message — that proves the wallet is theirs and grants
-   nothing. Set ENDPOINT to your own URL to collect entries.
-   ─────────────────────────────────────────────────────────────────── */
-(function () {
-  'use strict';
-  var PROVE = false;     // EDIT: true to require proof of ownership
-  var ENDPOINT = '';     // EDIT: e.g. '/api/airdrop' to store submissions
-
-  var btn = document.getElementById('drop-connect-btn');
-  var out = document.getElementById('drop-status');
-  if (!btn || !out) return;
-
-  function say(msg, kind) {
-    out.textContent = msg;
-    out.className = 'dc-status' + (kind ? ' ' + kind : '');
-  }
-
-  btn.addEventListener('click', async function () {
-    if (!window.ethereum) {
-      say('No wallet detected. Install MetaMask, Rabby or Coinbase Wallet.', 'err');
-      return;
-    }
-    btn.disabled = true;
-    try {
-      var accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      var address = accounts && accounts[0];
-      if (!address) { say('No account returned.', 'err'); return; }
-
-      var proof = null;
-      if (PROVE) {
-        var message =
-          '$LAPTOP airdrop — proof of wallet ownership\n' +
-          'Address: ' + address + '\n' +
-          'Time: ' + new Date().toISOString() + '\n' +
-          'This signature grants no permissions and moves no funds.';
-        proof = await window.ethereum.request({
-          method: 'personal_sign', params: [message, address]
-        });
-      }
-
-      if (ENDPOINT) {
-        await fetch(ENDPOINT, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ address: address, proof: proof })
-        });
-      }
-
-      btn.textContent = address.slice(0, 6) + '…' + address.slice(-4);
-      say('Wallet read. Eligibility is checked against the snapshot when criteria go live — nothing was approved and nothing was signed away.', 'ok');
-    } catch (e) {
-      var m = (e && (e.shortMessage || e.message)) || 'Connection cancelled.';
-      say(m.length > 140 ? m.slice(0, 140) + '…' : m, 'err');
-    } finally {
-      btn.disabled = false;
-    }
   });
+  againEl.addEventListener('click', function () {
+    if (busy || !submitted || againEl.hidden) return;
+    submitted = false;
+    amountEl.value = '';
+    termsEl.checked = false;
+    receiptEl.hidden = true;
+    againEl.hidden = true;
+    say('Your previous contribution was confirmed. Enter a new amount only if you want to send another payment.', 'ok');
+    render();
+  });
+  function walletChanged() {
+    if (busy || submitted) return;
+    account = null; signer = null; termsEl.checked = false;
+    $('contribution-sender').textContent = 'Not connected';
+    say('Wallet changed. Connect again before sending.', '');
+    render();
+  }
+  if (window.ethereum && window.ethereum.on) {
+    window.ethereum.on('accountsChanged', walletChanged);
+    window.ethereum.on('chainChanged', walletChanged);
+  }
+  if (lib) {
+    try {
+      var candidate = lib.getAddress(CONTRIBUTIONS.recipient);
+      if (candidate !== lib.ZeroAddress && candidate.toLowerCase() !== CONTRIBUTIONS.usdc.toLowerCase()) recipient = candidate;
+    } catch (_) {}
+  }
+  if (recipient) {
+    $('contribution-recipient').textContent = recipient;
+    $('contribution-wallet-link').href = 'https://basescan.org/address/' + recipient;
+    $('contribution-wallet-link').hidden = false;
+    say('Connect your wallet to contribute. Connecting does not send funds.', '');
+  } else {
+    say(lib ? 'Contributions are not open yet. The receiving wallet has not been set.'
+      : 'The wallet connection could not load. Reload the page to try again.', '');
+  }
+  render();
 })();
+/* CONTRIBUTIONS_END */
 
 /* ── countdown to launch ─────────────────────────────────────────────── */
 (function () {
