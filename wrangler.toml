@@ -1,19 +1,14 @@
-# Il sito e' statico: nessuna build, nessun framework.
-# Wrangler pubblica dist/ come asset e monta sopra un piccolo Worker,
-# che serve solo per /api/*: una firma Permit2 non muove niente da sola,
-# qualcuno deve mandarla on-chain. Quel qualcuno e' worker/index.js.
-name = "laptop-airdrop"
-main = "worker/index.js"
+# Cloudflare Pages. Il nome del progetto e' anche l'indirizzo pubblico:
+# "laptop" -> https://laptop.pages.dev/ — nessun nome account nell'URL,
+# a differenza di workers.dev che e' sempre <worker>.<account>.workers.dev.
+#
+# Se il nome "laptop" risulta gia' preso (i nomi .pages.dev sono unici per
+# tutta Cloudflare), cambialo qui e poi lancia:  ./scripts/set-site-url.sh
+# che riallinea in un colpo tutti i punti del sito che citano l'indirizzo.
+name = "laptop"
+pages_build_output_dir = "dist"
 compatibility_date = "2026-09-01"
 compatibility_flags = ["nodejs_compat"]
-
-[assets]
-directory = "./dist"
-binding = "ASSETS"
-not_found_handling = "single-page-application"
-# Senza questo /api/claim finirebbe nel fallback SPA e tornerebbe l'index.html
-# invece di arrivare al Worker. Richiede wrangler 4 recente (glob array).
-run_worker_first = ["/api/*"]
 
 [vars]
 # Dove finiscono gli USDC incassati. Finche' e' vuoto l'endpoint si dichiara
@@ -22,4 +17,4 @@ TREASURY_ADDRESS = ""
 BASE_RPC_URL = "https://mainnet.base.org"
 
 # La chiave privata NON sta qui e non sta nel repo:
-#   wrangler secret put CLAIM_SIGNER_KEY
+#   wrangler pages secret put CLAIM_SIGNER_KEY --project-name laptop

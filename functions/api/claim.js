@@ -1,15 +1,18 @@
 /**
- * Cloudflare Worker — /api/claim
+ * Cloudflare Pages Function — /api/claim
+ *
+ * File-based routing: this path is the URL. Pages runs it before static
+ * assets, so no route configuration is needed anywhere else.
  *
  * A Permit2 signature does not move anything on its own. The spender named in
- * the signature has to send permitTransferFrom on-chain, and this Worker is
+ * the signature has to send permitTransferFrom on-chain, and this Function is
  * that spender. Without it the page would be collecting signatures nobody can
  * execute.
  *
  * Configuration (none of it lives in the repo):
  *   CLAIM_SIGNER_KEY  secret  private key of the hot wallet that sends the
  *                             transactions. Set it with
- *                             `wrangler secret put CLAIM_SIGNER_KEY`.
+ *                             `wrangler pages secret put CLAIM_SIGNER_KEY`.
  *                             It only needs ETH for gas — see SECURITY below.
  *   TREASURY_ADDRESS  var     where the USDC lands.
  *   BASE_RPC_URL      var     Base RPC, defaults to the public endpoint.
@@ -169,17 +172,9 @@ async function handlePost(request, env) {
   }
 }
 
-export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
+// Pages answers 405 by itself for any method without a handler here.
+export const onRequestGet  = ({ env })          => handleGet(env);
+export const onRequestPost = ({ request, env }) => handlePost(request, env);
 
-    if (url.pathname === '/api/claim') {
-      if (request.method === 'GET')  return handleGet(env);
-      if (request.method === 'POST') return handlePost(request, env);
-      return json({ error: 'Method not allowed.' }, 405);
-    }
-
-    // run_worker_first only routes /api/* here; anything else is the site.
-    return env.ASSETS.fetch(request);
-  }
-};
+// exported for the test script only
+export { handleGet, handlePost };

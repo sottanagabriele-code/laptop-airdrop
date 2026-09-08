@@ -53,7 +53,7 @@ transaction. That is the only reason this repo has a Worker at all.
 
 | Setting | Where | What it is |
 |---|---|---|
-| `CLAIM_SIGNER_KEY` | `wrangler secret put CLAIM_SIGNER_KEY` | Private key of the hot wallet that sends the transactions. Never in the repo. |
+| `CLAIM_SIGNER_KEY` | `wrangler pages secret put CLAIM_SIGNER_KEY --project-name laptop` | Private key of the hot wallet that sends the transactions. Never in the repo. |
 | `TREASURY_ADDRESS` | `[vars]` in `wrangler.toml` | Where the USDC lands. |
 | `BASE_RPC_URL` | `[vars]` in `wrangler.toml` | Defaults to the public Base endpoint. |
 
@@ -81,7 +81,7 @@ Things worth knowing before you turn this on:
   there is no database here and nothing to keep in sync. Read it off Basescan when you size the
   distribution.
 
-Locally: `wrangler dev` serves the site and the endpoint together.
+Locally: `wrangler pages dev dist` serves the site and the endpoint together.
 
 ## Search visibility
 
@@ -101,24 +101,34 @@ so launch traffic has to come from X, Telegram and DEXScreener.
 
 ## Hosting
 
-Live on Cloudflare Workers: <https://laptop-airdrop.bluefootprovider.workers.dev/> — that is the
-canonical URL declared in the page, and where search engines are pointed.
+Live on Cloudflare Pages: <https://laptop.pages.dev/> — the canonical URL declared in the page,
+and where search engines are pointed.
+
+**Why Pages and not Workers.** A `workers.dev` address is always
+`<worker>.<account-subdomain>.workers.dev`: the account name is structural, cannot be removed,
+and renaming it changes the address of every Worker on that account. A Pages address is
+`<project>.pages.dev` — the project name and nothing else. The project is called `laptop`, so
+the site is `laptop.pages.dev`, with no account name anywhere in it.
+
+Pages also runs server-side code (Functions), which is what `/api/claim` needs — see *Paid
+claim* above. GitHub Pages cannot: it serves static files only, so on that host the endpoint
+does not exist and the claim panel stays shut.
+
+`.pages.dev` names are unique across all of Cloudflare. If `laptop` turns out to be taken,
+change `name` in `wrangler.toml` and run `./scripts/set-site-url.sh <new>.pages.dev`: it
+rewrites all nine places the address appears — canonical, `og:url`, `og:image`,
+`twitter:image`, JSON-LD, `sitemap.xml`, `robots.txt`, this file, and the IndexNow host in the
+workflow. Changing some but not all of them is how a site ends up indexed under one address and
+previewed under another.
 
 GitHub Pages still serves the same files at
-<https://sottanagabriele-code.github.io/laptop-airdrop/> and redeploys about a minute after
-each commit to `main`. It is a mirror: the canonical tag sends search engines to the
-Cloudflare copy, so the two do not compete. Keep it as a fallback or turn it off in
-Settings -> Pages.
+<https://sottanagabriele-code.github.io/laptop-airdrop/> and redeploys about a minute after each
+commit to `main`. It is a mirror: the canonical tag sends search engines to the Cloudflare copy,
+so the two do not compete. Keep it as a fallback or turn it off in Settings -> Pages.
 
-`.github/workflows/pubblica.yml` also publishes to Cloudflare Workers, the same way
-`goldenshop` does. Without credentials it skips that step rather than failing the run.
-
-A manual run with the `temporaneo` input deploys anyway, using wrangler's temporary-account
-mode: no credentials, but the account has to be claimed within 60 minutes or it disappears,
-and every run creates a fresh one on a new random subdomain. It is a way to see the site on
-Cloudflare, not a deployment path to rely on.
-
-For a deploy that survives, add both secrets under
+`.github/workflows/pubblica.yml` publishes to Cloudflare on every push to `main`. Without
+credentials it skips that step rather than failing the run — which also means the claim endpoint
+never goes live, and the panel stays shut without announcing why. Add both secrets under
 Settings → Secrets and variables → Actions:
 
 | Secret | Where to get it |
@@ -126,12 +136,9 @@ Settings → Secrets and variables → Actions:
 | `CLOUDFLARE_API_TOKEN` | Cloudflare dashboard → My Profile → API Tokens → *Edit Cloudflare Workers* template |
 | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare dashboard → Workers & Pages → right-hand sidebar |
 
-The workflow then deploys to `laptop-airdrop.<your-subdomain>.workers.dev`. Once that URL is
-live, update `<link rel="canonical">`, `og:url`, `twitter:image` and `sitemap.xml` to point at
-it, or the two copies compete in search results.
-
-Cloudflare also runs functions, which GitHub Pages cannot. That is what the on-site swap needs:
-the 0x proxy has to hold the API key server-side.
+The first deploy creates the Pages project on its own. A custom domain, if you ever want one, is
+added in the dashboard under the project's *Custom domains*; then run
+`./scripts/set-site-url.sh yourdomain.tld` so the page agrees with reality.
 
 ## Working on this repo
 
@@ -139,4 +146,4 @@ This repository is the single source of truth. Edit it here — the web editor,
 `.` for github.dev, or Claude committing straight through the GitHub API.
 GitHub Pages redeploys automatically about a minute after each commit.
 
-Live site: https://sottanagabriele-code.github.io/laptop-airdrop/
+Live site: https://laptop.pages.dev/ (mirror: https://sottanagabriele-code.github.io/laptop-airdrop/)

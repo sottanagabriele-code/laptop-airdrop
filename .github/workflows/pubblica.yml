@@ -5,11 +5,6 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-    inputs:
-      temporaneo:
-        description: "Pubblica su un account Cloudflare temporaneo (nessuna credenziale; stampa un link per rivendicarlo)"
-        type: boolean
-        default: false
 
 # Se arrivano due modifiche ravvicinate pubblica solo la piu recente.
 concurrency:
@@ -23,16 +18,16 @@ jobs:
       - name: Scarica il codice
         uses: actions/checkout@v4
 
-      - name: Installa le dipendenze del Worker
-        # Il sito resta senza build. Questo serve solo a /api/claim: il Worker
-        # importa ethers e wrangler lo impacchetta al momento del deploy,
-        # quindi i moduli devono esistere qui.
+      - name: Installa le dipendenze della Function
+        # Il sito resta senza build. Questo serve solo a /api/claim: la Pages
+        # Function importa ethers e wrangler la impacchetta al deploy, quindi
+        # i moduli devono esistere qui.
         run: npm install --no-audit --no-fund
 
       - name: Raccogli i file del sito
         # Il sito e' un singolo index.html piu' gli asset: niente da compilare.
-        # Si copia in dist/ invece di pubblicare la radice, cosi' .git,
-        # il workflow e wrangler.toml non finiscono online.
+        # Si copia in dist/ invece di pubblicare la radice, cosi' .git, il
+        # workflow, functions/ e wrangler.toml non finiscono online.
         run: |
           mkdir -p dist
           cp index.html robots.txt sitemap.xml og.png dist/
@@ -49,9 +44,10 @@ jobs:
             {
               echo "### Cloudflare non configurato"
               echo ""
-              echo "Il sito resta online su GitHub Pages."
-              echo "Per pubblicare anche su Cloudflare servono due secret in"
-              echo "Settings -> Secrets and variables -> Actions:"
+              echo "Il sito resta online su GitHub Pages, ma /api/claim non esiste"
+              echo "e il claim Permit2 resta chiuso."
+              echo ""
+              echo "Servono due secret in Settings -> Secrets and variables -> Actions:"
               echo ""
               echo "| Secret | Dove prenderlo |"
               echo "|---|---|"
@@ -60,34 +56,38 @@ jobs:
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      - name: Pubblica su Cloudflare
+      - name: Prepara il progetto Pages
+        # Idempotente: al primo giro crea "laptop", dopo fallisce perche' esiste
+        # gia' e va bene cosi'. Senza, il primo deploy in CI si bloccherebbe a
+        # chiedere conferma a un terminale che non c'e'.
+        if: steps.cf.outputs.pronto == 'si'
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx --yes wrangler@4 pages project create laptop --production-branch=main
+
+      - name: Pubblica su Cloudflare Pages
+        # Nome progetto e cartella arrivano da wrangler.toml (name,
+        # pages_build_output_dir). L'indirizzo pubblico e' <nome>.pages.dev:
+        # nessun nome account, a differenza di workers.dev.
         if: steps.cf.outputs.pronto == 'si'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: npx --yes wrangler@4 deploy
-
-      - name: Pubblica su Cloudflare (account temporaneo)
-        # Ripiego quando i secret non ci sono: wrangler crea un account
-        # temporaneo e stampa un link per rivendicarlo. Serve a vedere il
-        # sito su Cloudflare subito; non sostituisce il deploy vero.
-        if: steps.cf.outputs.pronto == 'no' && inputs.temporaneo
-        run: |
-          set -o pipefail
-          npx --yes wrangler@4 deploy --temporary 2>&1 | tee deploy.log
-          echo "### Deploy Cloudflare temporaneo" >> "$GITHUB_STEP_SUMMARY"
-          grep -Eo 'https://[a-zA-Z0-9./?=_%:-]*' deploy.log | sort -u >> "$GITHUB_STEP_SUMMARY"
+        run: npx --yes wrangler@4 pages deploy --branch=main
 
       - name: Segnala l'aggiornamento ai motori di ricerca
         # IndexNow: Bing, Yandex, Seznam, Naver e chi legge il loro indice
         # (DuckDuckGo compreso) ricrawlano su richiesta, senza registrazione.
         # Google non aderisce: per Google serve Search Console, a mano.
+        if: steps.cf.outputs.pronto == 'si'
         continue-on-error: true
         run: |
           # La chiave e' il file alla radice che ha per nome 32 cifre esadecimali.
           KEY=$(basename "$(ls ./*.txt | grep -E '/[0-9a-f]{32}\.txt$' | head -1)" .txt)
           if [ -z "$KEY" ]; then echo "nessuna chiave IndexNow, salto"; exit 0; fi
-          HOST=laptop-airdrop.bluefootprovider.workers.dev
+          HOST=laptop.pages.dev
           URL=https://$HOST/
           echo "Segnalo $URL con la chiave $KEY"
           curl -sS -m 30 -X POST https://api.indexnow.org/IndexNow \
