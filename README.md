@@ -1,38 +1,65 @@
 # $LAPTOP — laptop-airdrop
 
-Landing page for **$LAPTOP**, an independent memecoin on Base. Launch: **September 9**.
+A focused airdrop contribution page: the amount selector, quick presets, recipient
+and participation terms are presented before the wallet confirmation. No amount is
+preselected, and the page does not invent participant counts, urgency or token allocations.
 
-Single-file static site: `index.html` — all CSS and JS inline, Google Fonts only, no build step.
+Single-file static site for the planned $LAPTOP token on Base. All application
+CSS and JavaScript are inline in index.html; ethers 6.13.4 loads from the
+existing CDN. No build step or payment backend is required.
 
-## Fill these in before going live
+## Direct contributions
 
-Search `index.html` for `EDIT`:
+Visitors choose an amount of ETH or native USDC on Base and explicitly confirm
+a direct transfer to the organizer's displayed wallet. The page does not swap,
+approve token allowances, ask for Permit2 signatures, or distribute tokens.
 
-| What | Where |
-|---|---|
-| Contract address | `#ca-text` in the header, and `CONFIG.token` in the script |
-| Launch time | `var LAUNCH = '2026-09-09T16:00:00Z'` (UTC) |
-| 0x API proxy | `CONFIG.apiBase` — a same-origin endpoint forwarding to `api.0x.org` with the `0x-api-key` and `0x-version: v2` headers. **Never put the API key in this file.** |
-| Social links | footer `.links` |
-| Open Graph image | `og:image` / `twitter:image` meta tags |
-| Video reel | the `.reel` slot |
-| Price chart | the `.chart-box` iframe (DEXScreener embed) |
+The token has not been created. Page copy and a required acknowledgment explain
+that funds are sent now and the organizer plans a manual token distribution
+after launch, with amounts decided later and no fixed rate or guaranteed allocation.
+Connecting a wallet alone does not request a payment.
 
-## Swap
+The organizer supplied this public receiving address, configured in the CONTRIBUTIONS
+object in index.html:
 
-**Currently disabled.** With no contract address in `CONFIG.token`, the buy button reads
-"Coming soon" and clicking it says the same. It turns back on by itself once `CONFIG.token`
-is set and `CONFIG.apiBase` points at a working 0x proxy.
+    recipient: '0x4704c46857f175b12b86428c9b0a3fd32b991af4'
 
-Paying in USDC uses **Permit2** (`0x000000000022D473030F116dDEE9F6B43aC78BA3`) through the
-0x Swap API v2 `/swap/permit2/quote` endpoint: a one-time ERC-20 approval to Permit2, then a
-scoped EIP-712 signature per swap appended to the calldata. Paying in native ETH skips Permit2.
+The existing Base network is retained. ETH is selected by default; USDC remains available.
+The page requires a valid amount before requesting a wallet connection, and requires
+acknowledgment of the distribution terms before requesting the payment.
 
-The airdrop panel connects **read-only** (`eth_requestAccounts`): no approval, no allowance,
-no token permission. Eligibility is read from public on-chain data. It must stay that way —
-the panel's own copy promises it, and a Permit2 signature there would authorise token
-transfers out of the visitor's wallet, not prove ownership. To require proof that the wallet
-is theirs, set `PROVE = true`: that signs a plain message and grants nothing.
+This is the organizer's designated receiving wallet on Base. Do not substitute the
+future $LAPTOP contract address, USDC's contract address, or a private key.
+Recipient, sender and exact amount are shown before the wallet confirmation.
+ETH and USDC are transferred as selected; this page does not convert currencies.
+Visitors need ETH on Base to cover their wallet's displayed network fee.
+
+Transfers create an on-chain record of sender, recipient and amount. Each confirmed
+contribution links to its Basescan receipt. There is no off-chain donor database
+and no automatic token allocation, refund or distribution. The organizer must
+review the confirmed transfers and decide any later distribution manually.
+
+## Validation
+
+Run the application-flow tests with Node's built-in test runner:
+
+    node --test tests/contributions.test.cjs
+
+These tests run the actual inline payment script against mock wallets and DOM
+elements. They cover exact ETH/USDC amounts, required consent, recipient validation,
+network/account changes, rejection, duplicate clicks and uncertain receipts.
+They never access a real wallet or send a real transaction. They do not verify
+browser rendering or prove an on-chain payment succeeds.
+
+The recipient has been supplied by the organizer. Complete
+a user-confirmed end-to-end payment check. Changing main triggers the existing
+Cloudflare publication workflow.
+
+## Later token launch
+
+The token contract is not needed to receive contributions. Update the published token information and distribution details
+when those details exist. Do not present unverified supply, transfer fees or
+allocation terms as established facts.
 
 ## Search visibility
 
@@ -81,8 +108,8 @@ The workflow then deploys to `laptop-airdrop.<your-subdomain>.workers.dev`. Once
 live, update `<link rel="canonical">`, `og:url`, `twitter:image` and `sitemap.xml` to point at
 it, or the two copies compete in search results.
 
-Cloudflare also runs functions, which GitHub Pages cannot. That is what the on-site swap needs:
-the 0x proxy has to hold the API key server-side.
+Direct contributions use the visitor's wallet and work with the existing static hosting.
+No 0x API key, swap proxy or new Cloudflare service is needed.
 
 ## Working on this repo
 
