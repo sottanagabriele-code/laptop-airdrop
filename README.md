@@ -52,9 +52,14 @@ so launch traffic has to come from X, Telegram and DEXScreener.
 
 ## Hosting
 
-Live now on GitHub Pages: <https://sottanagabriele-code.github.io/laptop-airdrop/> — that is
-the canonical URL declared in the page, and it deploys itself about a minute after each
-commit to `main`.
+Live on Cloudflare Workers: <https://laptop-airdrop.joyous-tempo.workers.dev/> — that is the
+canonical URL declared in the page, and where search engines are pointed.
+
+GitHub Pages still serves the same files at
+<https://sottanagabriele-code.github.io/laptop-airdrop/> and redeploys about a minute after
+each commit to `main`. It is a mirror: the canonical tag sends search engines to the
+Cloudflare copy, so the two do not compete. Keep it as a fallback or turn it off in
+Settings -> Pages.
 
 `.github/workflows/pubblica.yml` also publishes to Cloudflare Workers, the same way
 `goldenshop` does. Without credentials it skips that step rather than failing the run.

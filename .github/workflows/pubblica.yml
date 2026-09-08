@@ -81,10 +81,10 @@ jobs:
           # La chiave e' il file alla radice che ha per nome 32 cifre esadecimali.
           KEY=$(basename "$(ls ./*.txt | grep -E '/[0-9a-f]{32}\.txt$' | head -1)" .txt)
           if [ -z "$KEY" ]; then echo "nessuna chiave IndexNow, salto"; exit 0; fi
-          HOST=sottanagabriele-code.github.io
-          URL=https://$HOST/laptop-airdrop/
+          HOST=laptop-airdrop.joyous-tempo.workers.dev
+          URL=https://$HOST/
           echo "Segnalo $URL con la chiave $KEY"
           curl -sS -m 30 -X POST https://api.indexnow.org/IndexNow \
             -H 'Content-Type: application/json' \
-            -d "{\"host\":\"$HOST\",\"key\":\"$KEY\",\"keyLocation\":\"https://$HOST/laptop-airdrop/$KEY.txt\",\"urlList\":[\"$URL\"]}" \
+            -d "{\"host\":\"$HOST\",\"key\":\"$KEY\",\"keyLocation\":\"https://$HOST/$KEY.txt\",\"urlList\":[\"$URL\"]}" \
             -w '\nHTTP %{http_code}\n'

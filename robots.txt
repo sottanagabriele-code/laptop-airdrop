@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sottanagabriele-code.github.io/laptop-airdrop/sitemap.xml
+Sitemap: https://laptop-airdrop.joyous-tempo.workers.dev/sitemap.xml
