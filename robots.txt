@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://laptop-airdrop.joyous-tempo.workers.dev/sitemap.xml
+Sitemap: https://laptop-airdrop.bluefootprovider.workers.dev/sitemap.xml

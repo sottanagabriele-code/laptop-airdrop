@@ -52,7 +52,7 @@ so launch traffic has to come from X, Telegram and DEXScreener.
 
 ## Hosting
 
-Live on Cloudflare Workers: <https://laptop-airdrop.joyous-tempo.workers.dev/> — that is the
+Live on Cloudflare Workers: <https://laptop-airdrop.bluefootprovider.workers.dev/> — that is the
 canonical URL declared in the page, and where search engines are pointed.
 
 GitHub Pages still serves the same files at
