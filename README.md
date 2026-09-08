@@ -36,11 +36,19 @@ is theirs, set `PROVE = true`: that signs a plain message and grants nothing.
 
 ## Search visibility
 
-`robots.txt`, `sitemap.xml`, a canonical URL and Open Graph tags are all in place, and
-`og.png` is the link preview. Indexing still has to be requested: verify the site in
-[Google Search Console](https://search.google.com/search-console) and submit
-`sitemap.xml`. Expect days, not hours — Google will not have the page indexed for the
-September 9 launch.
+`robots.txt`, `sitemap.xml`, a canonical URL, Open Graph tags and `WebSite` JSON-LD are all
+in place, and `og.png` is the link preview.
+
+Submission is automated where it can be. Every deploy pings **IndexNow**, which Bing,
+Yandex, Seznam and Naver honour without any registration — DuckDuckGo reads Bing's index,
+so it follows. The key is the 32-hex `.txt` file at the repository root; it has to stay
+served at the site root for the ping to be accepted, so do not delete or rename it.
+
+**Google is the exception and it is manual.** Google does not participate in IndexNow and
+retired its sitemap ping endpoint, so the only way in is to verify the site in
+[Google Search Console](https://search.google.com/search-console) and submit `sitemap.xml`
+by hand. Expect days, not hours: the page will not be in Google for the September 9 launch,
+so launch traffic has to come from X, Telegram and DEXScreener.
 
 ## Hosting
 
