@@ -329,6 +329,10 @@
   }
   @media (min-width: 820px){ .v-link{ justify-self: end; } }
   .v-link:hover{ border-color: var(--amber-dim); background: rgba(255,194,75,.08); }
+  /* Not links yet: nothing to point at until the contract is deployed. */
+  .v-link[aria-disabled], .links a[aria-disabled]{ opacity: .55; cursor: default; }
+  .v-link[aria-disabled]:hover{ border-color: var(--line); background: none; }
+  .links a[aria-disabled]:hover{ color: var(--ink); border-color: var(--line); }
 
   /* ── swap ───────────────────────────────────────────── */
   .swap{
@@ -754,22 +758,22 @@
         <div class="v-k">Contract address</div>
         <p class="v-p">The only identifier that means anything. Compare it character by character with the one at the top of this page — tickers repeat, addresses don't.</p>
         <!-- EDIT: link to your contract on Basescan -->
-        <a class="v-link" href="#">Basescan</a>
+        <a class="v-link" aria-disabled="true">Basescan <span class="soon">Sept 9</span></a>
       </div>
       <div class="v-row">
         <div class="v-k">Ownership</div>
         <p class="v-p">Check whether ownership is renounced and whether any mint, blacklist or fee-change function survives. If it does, the rules can change after you buy.</p>
-        <a class="v-link" href="#">Read contract</a>
+        <a class="v-link" aria-disabled="true">Read contract <span class="soon">Sept 9</span></a>
       </div>
       <div class="v-row">
         <div class="v-k">Liquidity</div>
         <p class="v-p">Whether the LP tokens are burned or locked, and with whom. Unlocked liquidity means it can be pulled — that's the single biggest risk in any launch.</p>
-        <a class="v-link" href="#">LP tx</a>
+        <a class="v-link" aria-disabled="true">LP tx <span class="soon">Sept 9</span></a>
       </div>
       <div class="v-row">
         <div class="v-k">Holder distribution</div>
         <p class="v-p">Every wallet, including mine and everyone I know, buys on the open market at the same price as you. Look at the concentration before you size a position.</p>
-        <a class="v-link" href="#">Holders</a>
+        <a class="v-link" aria-disabled="true">Holders <span class="soon">Sept 9</span></a>
       </div>
     </div>
 
@@ -820,8 +824,8 @@
           <span class="k">You receive (estimated)</span>
           <div class="out idle" id="quote-out">—</div>
         </div>
-        <div class="swap-status" id="swap-status">Connect a wallet on Base to get a quote.</div>
-        <button class="btn" id="swap-btn" type="button">Connect wallet</button>
+        <div class="swap-status" id="swap-status">Coming soon.</div>
+        <button class="btn" id="swap-btn" type="button">Coming soon</button>
         <button class="btn ghost" id="watch-btn" type="button">Add $LAPTOP to wallet</button>
         <p class="swap-foot">
           Routing by 0x · Approvals via
@@ -940,9 +944,9 @@
       </p>
       <div class="links">
         <!-- EDIT: your real links -->
-        <a href="#">X / Twitter <span class="soon">Soon</span></a>
-        <a href="#">Telegram <span class="soon">Soon</span></a>
-        <a href="#">Basescan <span class="soon">Sept 9</span></a>
+        <a aria-disabled="true">X / Twitter <span class="soon">Soon</span></a>
+        <a aria-disabled="true">Telegram <span class="soon">Soon</span></a>
+        <a aria-disabled="true">Basescan <span class="soon">Sept 9</span></a>
         <a href="#airdrop">Airdrop <span class="soon">Soon</span></a>
       </div>
     </div>
@@ -1124,7 +1128,7 @@
     btn.disabled = true;
     try {
       if (!configured()) {
-        say('The swap goes live with the contract on September 9. Until then, use the four steps below.', 'err');
+        say('Coming soon.', 'err');
       } else if (!account) {
         await connect();
       } else {
@@ -1160,8 +1164,8 @@
   }
 
   if (!configured()) {
-    btn.textContent = 'Live Sept 9';
-    say('The swap goes live with the contract on September 9. Until then, use the four steps below.');
+    btn.textContent = 'Coming soon';
+    say('Coming soon.');
   }
 })();
 

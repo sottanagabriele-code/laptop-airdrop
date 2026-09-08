@@ -1,0 +1,8 @@
+# Il sito e' statico: nessuna build, nessun codice server.
+# Wrangler pubblica il contenuto di dist/ come Worker di soli asset.
+name = "laptop-airdrop"
+compatibility_date = "2026-09-01"
+
+[assets]
+directory = "./dist"
+not_found_handling = "single-page-application"
