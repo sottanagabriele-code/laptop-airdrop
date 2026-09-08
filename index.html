@@ -3,24 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="$LAPTOP — an independent memecoin on Base about the most talked-about object in American politics. September 9.">
-<!-- EDIT: replace the URLs with your domain before going live -->
+<title>$LAPTOP — The Laptop Coin on Base</title>
+<meta name="description" content="$LAPTOP — an independent memecoin on Base about the most talked-about object in American politics. Launch: September 9.">
+<link rel="canonical" href="https://sottanagabriele-code.github.io/laptop-airdrop/">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="$LAPTOP">
 <meta property="og:title" content="$LAPTOP — September 9">
 <meta property="og:description" content="Six years of headlines. One hard drive. Nobody ever showed it to you.">
-<meta property="og:image" content="https://YOURDOMAIN/og.png">
-<meta property="og:url" content="https://YOURDOMAIN/">
+<meta property="og:image" content="https://sottanagabriele-code.github.io/laptop-airdrop/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://sottanagabriele-code.github.io/laptop-airdrop/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="$LAPTOP — September 9">
 <meta name="twitter:description" content="Six years of headlines. One hard drive. Nobody ever showed it to you.">
-<meta name="twitter:image" content="https://YOURDOMAIN/og.png">
-<style>body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style>
-</head>
-<body>
-<title>The Laptop Coin</title>
+<meta name="twitter:image" content="https://sottanagabriele-code.github.io/laptop-airdrop/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
 
 <style>
   :root{
@@ -1071,10 +1075,15 @@
   async function ensurePermit2Allowance() {
     var meta = sellMeta();
     if (meta.address === NATIVE) return true;           // native ETH needs no approval
-    var spender = (quote && quote.issues && quote.issues.allowance && quote.issues.allowance.spender) || PERMIT2;
-    var erc20 = new ethers.Contract(meta.address, ERC20_ABI, signer);
+    var issue   = quote && quote.issues && quote.issues.allowance;
+    var spender = (issue && issue.spender) || PERMIT2;
+    // Compare against the amount this swap actually needs. A leftover dust
+    // allowance from an earlier approval is not enough, and letting it pass
+    // here fails the swap only after the user has already signed.
+    var needed  = quote && quote.sellAmount ? BigInt(quote.sellAmount) : 0n;
+    var erc20   = new ethers.Contract(meta.address, ERC20_ABI, signer);
     var current = await erc20.allowance(account, spender);
-    if (current > 0n) return true;
+    if (current > 0n && current >= needed) return true;
     say('Approving ' + meta.symbol + ' to Permit2 — this is a one-time step.', 'ok');
     var tx = await erc20.approve(spender, ethers.MaxUint256);
     await tx.wait();
