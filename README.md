@@ -56,9 +56,15 @@ Live now on GitHub Pages: <https://sottanagabriele-code.github.io/laptop-airdrop
 the canonical URL declared in the page, and it deploys itself about a minute after each
 commit to `main`.
 
-`.github/workflows/pubblica.yml` also publishes to Cloudflare Workers on every push, the same
-way `goldenshop` does. It is **not working yet**: the run fails at the wrangler step because
-the repository has no Cloudflare credentials. Add both under
+`.github/workflows/pubblica.yml` also publishes to Cloudflare Workers, the same way
+`goldenshop` does. Without credentials it skips that step rather than failing the run.
+
+A manual run with the `temporaneo` input deploys anyway, using wrangler's temporary-account
+mode: no credentials, but the account has to be claimed within 60 minutes or it disappears,
+and every run creates a fresh one on a new random subdomain. It is a way to see the site on
+Cloudflare, not a deployment path to rely on.
+
+For a deploy that survives, add both secrets under
 Settings → Secrets and variables → Actions:
 
 | Secret | Where to get it |
