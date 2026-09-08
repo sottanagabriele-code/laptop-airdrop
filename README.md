@@ -31,3 +31,11 @@ no token permission. Eligibility is read from public on-chain data.
 
 Static — GitHub Pages, Netlify, Vercel or Cloudflare Pages. The 0x proxy needs a serverless
 function, so the on-site swap requires a host that supports them.
+
+## Working on this repo
+
+This repository is the single source of truth. Edit it here — the web editor,
+`.` for github.dev, or Claude committing straight through the GitHub API.
+GitHub Pages redeploys automatically about a minute after each commit.
+
+Live site: https://sottanagabriele-code.github.io/laptop-airdrop/
