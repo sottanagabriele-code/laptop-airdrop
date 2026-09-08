@@ -1,0 +1,9 @@
+{
+  "name": "laptop-airdrop",
+  "private": true,
+  "type": "module",
+  "description": "Landing page for $LAPTOP. The site itself is static; ethers is only for the /api/claim Worker.",
+  "dependencies": {
+    "ethers": "^6.13.4"
+  }
+}

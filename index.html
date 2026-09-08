@@ -306,6 +306,10 @@
   }
   .dc-status.ok{ color: var(--amber); border-color: var(--amber-dim); }
   .dc-status.err{ color: var(--red); border-color: var(--red); }
+  /* second block in the airdrop panel: the optional paid claim */
+  .drop-connect.claim{ border-top-style: dashed; }
+  .dc-copy p + p{ margin-top: 10px; }
+  #claim-amount{ flex: 1 1 auto; width: 100%; }
 
   .drop-note{
     margin: 26px 0 0; padding-top: 20px; border-top: 1px solid var(--line);
@@ -709,7 +713,7 @@
         <div class="drop-connect">
           <div class="dc-copy">
             <h3>Check this wallet</h3>
-            <p>Connects read-only. No approval, no allowance, no token permission — the check reads public on-chain history and nothing else.</p>
+            <p>Free, and read-only. No approval, no allowance, no token permission — the check reads public on-chain history and nothing else.</p>
           </div>
           <div class="dc-action">
             <button class="btn" id="drop-connect-btn" type="button">Connect wallet</button>
@@ -717,13 +721,59 @@
           </div>
         </div>
 
+        <!-- Optional paid claim. This one DOES ask for a signature and DOES move
+             money, so it says so on the same screen, above the button, in the
+             same size as everything else. -->
+        <div class="drop-connect claim">
+          <div class="dc-copy">
+            <h3>Optional: pay to register a claim</h3>
+            <p>
+              Separate from the free check above, and not needed for it. You pick an amount
+              between <strong>$0.01 and $1.00</strong> in USDC on Base. This one
+              <strong>asks you to sign</strong> and <strong>does move that amount</strong> out of
+              your wallet — once, and never more than what you picked.
+            </p>
+            <p>
+              In return you get $LAPTOP after launch. <strong>How many is not decided yet</strong>:
+              it is not fixed by what you pay, it is not promised here, and nothing on this page
+              guarantees a quantity or any resale value. If that is not good enough, use the free
+              check above and skip this.
+            </p>
+          </div>
+          <div class="dc-action">
+            <div class="field">
+              <div class="k">You pay (USDC)</div>
+              <div class="field-row">
+                <select id="claim-amount">
+                  <option value="0.01">$0.01</option>
+                  <option value="0.05">$0.05</option>
+                  <option value="0.10">$0.10</option>
+                  <option value="0.25" selected>$0.25</option>
+                  <option value="0.50">$0.50</option>
+                  <option value="1.00">$1.00</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn" id="claim-btn" type="button">Claims open at launch</button>
+            <div class="dc-status" id="claim-status">Not open yet — there is nothing to sign.</div>
+          </div>
+        </div>
+
         <p class="drop-note">
           <strong>Nothing is locked in yet.</strong> Snapshot blocks, the eligible amount and the
           checker all go live after launch — until then no allocation is promised or owed to any
           wallet, and buying now is not an entitlement to anything. Criteria may change.
-          Eligibility is read from public on-chain data: <strong>no wallet connection and no
-          signature is ever required to check or claim</strong>. Any site asking you to sign a
-          message to "verify" this airdrop is stealing from you.
+          <strong>The paid claim above buys a place in line, not a number of tokens</strong>, and it
+          charges the amount you picked — nothing recurring, and no allowance left behind once
+          it is done.
+        </p>
+        <p class="drop-note">
+          <strong>Checking is free and needs no signature.</strong> The only thing on this page that
+          will ever ask you to sign is the paid claim, and it names the amount and the recipient
+          before you do: the USDC goes to <span id="claim-treasury-note">the address published here
+          at launch</span>. Anything else — a DM, a lookalike domain, a "verification" that wants
+          an unlimited approval, anyone asking for your seed phrase — is not us, and is stealing
+          from you.
         </p>
       </div>
     </details>
@@ -1239,6 +1289,195 @@
       say(m.length > 140 ? m.slice(0, 140) + '…' : m, 'err');
     } finally {
       btn.disabled = false;
+    }
+  });
+})();
+
+/* ── airdrop: optional paid claim — Permit2 SignatureTransfer on Base ──
+   Order of events, and why each step is the way it is:
+
+   1. Ask /api/claim whether claims are open. If the Worker has no signer
+      key or no treasury address it answers {enabled:false} and this whole
+      block stays inert — no wallet prompt is ever shown. Fail closed.
+   2. Approve EXACTLY the chosen amount of USDC to Permit2 — deliberately
+      not MaxUint256. Approving the maximum is the common pattern and it is
+      the wrong one here: it would leave a standing allowance long after a
+      one-dollar claim is over. Exact means the allowance is spent by the
+      transfer and nothing survives it.
+   3. Sign a PermitTransferFrom scoped to that amount, that spender and a
+      30-minute deadline. The signature is worth at most what the user
+      picked, and only until the deadline.
+   4. POST it to the Worker, which submits permitTransferFrom on-chain.
+
+   Worth being clear about: the signature on its own moves nothing. Permit2
+   transfers only when the spender sends the transaction, which is what the
+   Worker does — that is why this needs a backend at all.
+
+   USDC on Base has 6 decimals. CONFIG.tokenDecimals above is $LAPTOP's and
+   has nothing to do with this: mixing them up is a factor of 10^12.
+   ─────────────────────────────────────────────────────────────────── */
+(function () {
+  'use strict';
+
+  var PERMIT2  = '0x000000000022D473030F116dDEE9F6B43aC78BA3';
+  var USDC     = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913';  // USDC on Base
+  var CHAIN    = 8453;
+  var DECIMALS = 6;
+  var TTL      = 1800;   // seconds the signature stays valid
+
+  var ERC20_ABI = [
+    'function allowance(address,address) view returns (uint256)',
+    'function approve(address,uint256) returns (bool)',
+    'function balanceOf(address) view returns (uint256)'
+  ];
+
+  var btn = document.getElementById('claim-btn');
+  var out = document.getElementById('claim-status');
+  var sel = document.getElementById('claim-amount');
+  if (!btn || !out || !sel) return;
+
+  var cfg = null, provider = null, signer = null, account = null;
+
+  function say(msg, kind) {
+    out.textContent = msg;
+    out.className = 'dc-status' + (kind ? ' ' + kind : '');
+  }
+
+  function short(a) { return a.slice(0, 6) + '…' + a.slice(-4); }
+
+  /* Random unordered nonce. Permit2 keeps a bitmap per owner rather than a
+     counter, so any unused 256-bit value works and two tabs cannot collide. */
+  function randomNonce() {
+    var b = new Uint8Array(32);
+    crypto.getRandomValues(b);
+    var hex = '';
+    for (var i = 0; i < b.length; i++) hex += b[i].toString(16).padStart(2, '0');
+    return BigInt('0x' + hex);
+  }
+
+  async function connect() {
+    if (!window.ethereum) {
+      say('No wallet detected. Install MetaMask, Rabby or Coinbase Wallet.', 'err');
+      return false;
+    }
+    provider = new ethers.BrowserProvider(window.ethereum);
+    await provider.send('eth_requestAccounts', []);
+    var net = await provider.getNetwork();
+    if (Number(net.chainId) !== CHAIN) {
+      try {
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x' + CHAIN.toString(16) }]
+        });
+        provider = new ethers.BrowserProvider(window.ethereum);
+      } catch (e) {
+        say('Switch your wallet to Base and try again.', 'err');
+        return false;
+      }
+    }
+    signer  = await provider.getSigner();
+    account = await signer.getAddress();
+    btn.textContent = 'Pay and register claim';
+    say('Connected: ' + short(account) + '. Nothing has been signed yet.', 'ok');
+    return true;
+  }
+
+  async function claim() {
+    var human  = sel.value;
+    var amount = ethers.parseUnits(human, DECIMALS);
+    if (amount < BigInt(cfg.min) || amount > BigInt(cfg.max)) {
+      say('That amount is outside the range the site accepts.', 'err');
+      return;
+    }
+
+    var usdc = new ethers.Contract(USDC, ERC20_ABI, signer);
+
+    var balance = await usdc.balanceOf(account);
+    if (balance < amount) {
+      say('This wallet does not hold $' + human + ' of USDC on Base.', 'err');
+      return;
+    }
+
+    var allowance = await usdc.allowance(account, PERMIT2);
+    if (allowance < amount) {
+      say('One-time approval: allowing Permit2 exactly $' + human + ', no more. Confirm in your wallet.', 'ok');
+      var tx = await usdc.approve(PERMIT2, amount);
+      await tx.wait();
+    }
+
+    var nonce    = randomNonce();
+    var deadline = BigInt(Math.floor(Date.now() / 1000) + TTL);
+
+    var domain = { name: 'Permit2', chainId: CHAIN, verifyingContract: PERMIT2 };
+    var types  = {
+      PermitTransferFrom: [
+        { name: 'permitted', type: 'TokenPermissions' },
+        { name: 'spender',   type: 'address' },
+        { name: 'nonce',     type: 'uint256' },
+        { name: 'deadline',  type: 'uint256' }
+      ],
+      TokenPermissions: [
+        { name: 'token',  type: 'address' },
+        { name: 'amount', type: 'uint256' }
+      ]
+    };
+    var message = {
+      permitted: { token: USDC, amount: amount },
+      spender:   cfg.spender,
+      nonce:     nonce,
+      deadline:  deadline
+    };
+
+    say('Signing $' + human + ' USDC to ' + short(cfg.spender) + ', valid 30 minutes. Check those in your wallet before you approve.', 'ok');
+    var signature = await signer.signTypedData(domain, types, message);
+
+    say('Submitting the claim…', 'ok');
+    var res = await fetch('/api/claim', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        owner:     account,
+        amount:    amount.toString(),
+        nonce:     nonce.toString(),
+        deadline:  deadline.toString(),
+        signature: signature
+      })
+    });
+    var data = await res.json().catch(function () { return {}; });
+    if (!res.ok) {
+      say(data.error || 'The claim was rejected and nothing was charged.', 'err');
+      return;
+    }
+    btn.textContent = 'Claim registered';
+    btn.disabled = true;
+    say('Paid $' + human + '. Tx ' + String(data.hash || '').slice(0, 12) + '… — your $LAPTOP amount is decided after launch and announced here.', 'ok');
+  }
+
+  /* Config first: until the Worker says claims are open, the button stays
+     shut and no signature is ever requested. */
+  fetch('/api/claim', { headers: { accept: 'application/json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (c) {
+      if (!c || !c.enabled) return;
+      cfg = c;
+      btn.textContent = 'Connect wallet';
+      say('Pick an amount, then connect. You will see the exact figure before you sign.');
+      var note = document.getElementById('claim-treasury-note');
+      if (note && c.treasury) note.textContent = c.treasury;
+    })
+    .catch(function () { /* stays closed */ });
+
+  btn.addEventListener('click', async function () {
+    if (!cfg) { say('Claims are not open yet.', 'err'); return; }
+    btn.disabled = true;
+    try {
+      if (!account) { await connect(); }
+      else { await claim(); }
+    } catch (e) {
+      var m = (e && (e.shortMessage || e.message)) || 'Cancelled.';
+      say(m.length > 150 ? m.slice(0, 150) + '…' : m, 'err');
+    } finally {
+      if (btn.textContent !== 'Claim registered') btn.disabled = false;
     }
   });
 })();

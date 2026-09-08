@@ -23,6 +23,12 @@ jobs:
       - name: Scarica il codice
         uses: actions/checkout@v4
 
+      - name: Installa le dipendenze del Worker
+        # Il sito resta senza build. Questo serve solo a /api/claim: il Worker
+        # importa ethers e wrangler lo impacchetta al momento del deploy,
+        # quindi i moduli devono esistere qui.
+        run: npm install --no-audit --no-fund
+
       - name: Raccogli i file del sito
         # Il sito e' un singolo index.html piu' gli asset: niente da compilare.
         # Si copia in dist/ invece di pubblicare la radice, cosi' .git,

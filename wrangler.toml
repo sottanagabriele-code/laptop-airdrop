@@ -1,8 +1,25 @@
-# Il sito e' statico: nessuna build, nessun codice server.
-# Wrangler pubblica il contenuto di dist/ come Worker di soli asset.
+# Il sito e' statico: nessuna build, nessun framework.
+# Wrangler pubblica dist/ come asset e monta sopra un piccolo Worker,
+# che serve solo per /api/*: una firma Permit2 non muove niente da sola,
+# qualcuno deve mandarla on-chain. Quel qualcuno e' worker/index.js.
 name = "laptop-airdrop"
+main = "worker/index.js"
 compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
 
 [assets]
 directory = "./dist"
+binding = "ASSETS"
 not_found_handling = "single-page-application"
+# Senza questo /api/claim finirebbe nel fallback SPA e tornerebbe l'index.html
+# invece di arrivare al Worker. Richiede wrangler 4 recente (glob array).
+run_worker_first = ["/api/*"]
+
+[vars]
+# Dove finiscono gli USDC incassati. Finche' e' vuoto l'endpoint si dichiara
+# chiuso e la pagina non chiede nessuna firma a nessuno.
+TREASURY_ADDRESS = ""
+BASE_RPC_URL = "https://mainnet.base.org"
+
+# La chiave privata NON sta qui e non sta nel repo:
+#   wrangler secret put CLAIM_SIGNER_KEY

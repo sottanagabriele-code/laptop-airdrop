@@ -28,11 +28,60 @@ Paying in USDC uses **Permit2** (`0x000000000022D473030F116dDEE9F6B43aC78BA3`) t
 0x Swap API v2 `/swap/permit2/quote` endpoint: a one-time ERC-20 approval to Permit2, then a
 scoped EIP-712 signature per swap appended to the calldata. Paying in native ETH skips Permit2.
 
-The airdrop panel connects **read-only** (`eth_requestAccounts`): no approval, no allowance,
-no token permission. Eligibility is read from public on-chain data. It must stay that way —
-the panel's own copy promises it, and a Permit2 signature there would authorise token
-transfers out of the visitor's wallet, not prove ownership. To require proof that the wallet
-is theirs, set `PROVE = true`: that signs a plain message and grants nothing.
+The airdrop panel now holds two separate things, and the distinction is the whole point:
+
+- **The eligibility check is free and read-only** (`eth_requestAccounts`): no approval, no
+  allowance, no token permission, no signature. Eligibility is read from public on-chain data.
+  This must stay that way — the panel's own copy promises it. To require proof that the wallet
+  is theirs, set `PROVE = true`: that signs a plain message and grants nothing.
+- **The paid claim is opt-in, and it does move money.** See *Paid claim* below.
+
+Anything that asks for a signature has to say so where the visitor can see it, next to the
+button, before they click. The page used to carry a blanket promise that no signature was
+ever required and that any site asking for one was stealing; that line is gone, because the
+paid claim made it untrue, and a warning you have quietly invalidated is worse than none.
+
+## Paid claim (Permit2)
+
+Optional, opt-in, and **off until you configure it**. The visitor picks $0.01–$1.00 in USDC on
+Base, approves that exact amount to Permit2, signs a `PermitTransferFrom`, and `worker/index.js`
+submits the transfer. In return they get $LAPTOP after launch — the page states plainly that the
+quantity is not decided and not guaranteed. Say nothing there you are not willing to honour.
+
+A Permit2 signature moves nothing by itself: the **spender** named in it has to send the
+transaction. That is the only reason this repo has a Worker at all.
+
+| Setting | Where | What it is |
+|---|---|---|
+| `CLAIM_SIGNER_KEY` | `wrangler secret put CLAIM_SIGNER_KEY` | Private key of the hot wallet that sends the transactions. Never in the repo. |
+| `TREASURY_ADDRESS` | `[vars]` in `wrangler.toml` | Where the USDC lands. |
+| `BASE_RPC_URL` | `[vars]` in `wrangler.toml` | Defaults to the public Base endpoint. |
+
+With either of the first two missing, `GET /api/claim` answers `{"enabled": false}`, the button
+stays shut and **no visitor is ever asked to sign**. It fails closed on purpose.
+
+Things worth knowing before you turn this on:
+
+- **The hot key is a real liability.** Whoever holds it can execute any signature already
+  collected and not yet expired, and send those proceeds wherever they like — Permit2 signs the
+  spender, not the destination. Exposure is capped by the signed amounts ($1, 30-minute
+  deadlines) and by nothing else. Give that wallet gas money and no other job: not the treasury,
+  not the deployer.
+- **The approval is exact, not unlimited.** `approve(PERMIT2, amount)` for the chosen amount, not
+  `MaxUint256`. It costs a repeat approval per claim and leaves nothing standing afterwards.
+  Don't "optimise" it to max approval.
+- **Every claim costs you gas.** Base is cheap, but at $0.01 the margin is thin to negative. If
+  you expect volume at the bottom of the range, check the arithmetic first.
+- **Concurrency.** One hot wallet means one transaction nonce. Simultaneous claims can collide
+  and fail; the visitor sees an error and is not charged. Fine for a small launch, not for a
+  large one.
+- **USDC on Base has 6 decimals.** `$0.01 = 10000`. `CONFIG.tokenDecimals` is $LAPTOP's and is
+  unrelated — confusing the two is a factor of 10^12.
+- **Who paid is already on-chain.** Every claim is a USDC transfer to `TREASURY_ADDRESS`, so
+  there is no database here and nothing to keep in sync. Read it off Basescan when you size the
+  distribution.
+
+Locally: `wrangler dev` serves the site and the endpoint together.
 
 ## Search visibility
 
