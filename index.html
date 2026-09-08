@@ -3,909 +3,157 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>$LAPTOP — The Laptop Coin on Base</title>
-<meta name="description" content="$LAPTOP — an independent memecoin on Base about the most talked-about object in American politics. Launch: September 9.">
+<meta name="theme-color" content="#101311">
+<title>$LAPTOP Airdrop — Choose Your Contribution</title>
+<meta name="description" content="Choose your contribution to the independent $LAPTOP airdrop on Base. Funds go to the organizer now. Token amounts are decided and distributed manually after launch.">
 <link rel="canonical" href="https://laptop-airdrop.bluefootprovider.workers.dev/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="$LAPTOP">
-<meta property="og:title" content="$LAPTOP — September 9">
-<meta property="og:description" content="Six years of headlines. One hard drive. Nobody ever showed it to you.">
+<meta property="og:title" content="$LAPTOP Airdrop — Your amount. Your choice.">
+<meta property="og:description" content="Choose an amount, review the recipient, and confirm in your wallet. Contributions now; manual token distribution planned after launch.">
+<meta property="og:url" content="https://laptop-airdrop.bluefootprovider.workers.dev/">
 <meta property="og:image" content="https://laptop-airdrop.bluefootprovider.workers.dev/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:url" content="https://laptop-airdrop.bluefootprovider.workers.dev/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="$LAPTOP — September 9">
-<meta name="twitter:description" content="Six years of headlines. One hard drive. Nobody ever showed it to you.">
+<meta name="twitter:title" content="$LAPTOP Airdrop — Your amount. Your choice.">
+<meta name="twitter:description" content="Choose your contribution on Base. Token amounts will be decided by the organizer after launch.">
 <meta name="twitter:image" content="https://laptop-airdrop.bluefootprovider.workers.dev/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-<style>body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}
-  /* Contribution form: preserve the existing amber-and-charcoal design. */
-  .contribution-panel .field .k{ font-size: 14px; letter-spacing: .06em; }
-  .wallet-address{ display: block; margin-top: 10px; font-family: var(--mono); font-size: 14px;
-    line-height: 1.6; overflow-wrap: anywhere; white-space: normal; }
-  .contribution-panel .field a, .receipt-link{ font-size: 14px; color: var(--amber); }
-  #contribution-summary{ font-size: 16px; line-height: 1.6; }
-  .contribution-consent{ display: flex; align-items: flex-start; gap: 12px;
-    padding: 16px 0; font-size: 14px; line-height: 1.6; cursor: pointer; }
-  .contribution-consent input{ flex: 0 0 auto; width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--amber); }
-  .contribution-panel .swap-status{ font-size: 14px; overflow-wrap: anywhere; }
-  .contribution-panel .swap-foot{ font-size: 14px; line-height: 1.6; text-align: left; }
-  .receipt-link{ display: block; margin: 16px 0; overflow-wrap: anywhere; }
-  .contribution-panel [hidden]{ display: none; }
-  .contribution-panel :focus-visible{ outline: 2px solid var(--amber); outline-offset: 4px; }
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#101311;--panel:#1a1e1b;--line:#303730;--ink:#f5f7ef;--muted:#adb7aa;--lime:#cefa76;--lilac:#dacbff;--paper:#f8faf4;--dark:#20281d;--font:"DM Sans",system-ui,sans-serif;--display:"Space Grotesk",system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--font);-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button,a{touch-action:manipulation}button{cursor:pointer}button:disabled{cursor:not-allowed}a{color:inherit}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #899eee;outline-offset:4px}
+[hidden]{display:none!important}::selection{background:var(--lime);color:var(--bg)}.shell{width:min(1160px,calc(100% - 64px));margin-inline:auto}.skip{position:absolute;left:20px;top:-80px;background:var(--paper);color:var(--dark);padding:10px 18px;z-index:10}.skip:focus{top:12px}
+.topbar{border-bottom:1px solid var(--line);background:var(--bg)}.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:90px}.brand{display:inline-flex;gap:12px;align-items:center;text-decoration:none;font:700 24px/1 var(--display);letter-spacing:-1px}.brand-mark{display:grid;place-items:center;width:35px;height:35px;border-radius:9px;background:var(--lime);color:var(--bg);font-size:22px;letter-spacing:-2px}.nav-links{display:flex;gap:28px;align-items:center;font-size:14px}.nav-links>a{text-decoration:none}.nav-links>a:hover{color:var(--lime)}.nav-links .nav-cta{border:1px solid #5f6c59;border-radius:100px;padding:10px 18px;color:var(--ink)}
+.hero{position:relative;padding:64px 0 72px;overflow:hidden}.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 15% 30%,#25351c80 0,transparent 55%)}.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,490px);gap:72px;align-items:start}.hero-copy{padding:25px 0 0;min-width:0}.eyebrow{display:inline-flex;align-items:center;gap:10px;font:500 13px/1.4 var(--display);letter-spacing:.1em;text-transform:uppercase;color:var(--lime)}.eyebrow::before{content:"";width:20px;height:2px;background:currentColor}h1,h2,h3,p{margin:0}h1{font:600 clamp(50px,5.3vw,76px)/1.04 var(--display);letter-spacing:-.065em;margin-top:25px}h1 .accent{color:var(--lime)}.hero-lede{font-size:20px;line-height:1.55;color:var(--muted);margin-top:25px;max-width:38ch}.hero-lede strong{color:var(--ink);font-weight:500}.hero-note{display:flex;gap:16px;align-items:flex-start;max-width:400px;margin-top:32px;padding-top:24px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}.hero-note b{color:var(--ink);font-weight:600}.note-symbol{font:500 28px/1 var(--display);color:var(--lilac);flex:none}.hero-tag{margin-top:38px;display:inline-flex;gap:12px;align-items:center;font:500 14px var(--display);color:var(--muted)}.tag-label{background:#31342b;border:1px solid #535c43;border-radius:100px;padding:7px 11px;color:var(--lime)}
+.contribution-panel{background:var(--paper);color:var(--dark);border-radius:26px;padding:30px;box-shadow:0 24px 75px #0004;min-width:0;scroll-margin-top:24px}.panel-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:20px}.step-label{font:600 12px/1.4 var(--display);letter-spacing:.09em;color:#52614b}.network{display:inline-flex;gap:6px;align-items:center;padding:5px 9px;border-radius:6px;background:#e7eddf;color:#283d20;font-size:14px;font-weight:700;white-space:nowrap}.network i{display:inline-block;width:10px;height:10px;border-radius:50%;background:#1755f4}.panel-title{font:600 27px/1.2 var(--display);letter-spacing:-1px}.panel-sub{font-size:14px;color:#63715d;margin-top:7px}.amount-field{background:#fff;border:1px solid #cbd5c0;border-radius:15px;padding:17px 18px;margin-top:23px}.field-label{display:block;font-size:14px;font-weight:500;color:#5c6a55}.amount-row{display:flex;gap:10px;align-items:center;min-width:0;margin-top:5px}.amount-row input{min-width:0;width:100%;background:none;border:0;padding:2px 0;color:var(--dark);font:500 clamp(36px,4vw,54px)/1.2 var(--display);letter-spacing:-2px}.amount-row input::placeholder{color:#b1bca9}.amount-row input:focus{outline:none}.amount-field:focus-within{border-color:#4b692c;box-shadow:0 0 0 2px #d9e9c7}.amount-row select{flex:0 0 88px;width:88px;border:0;border-left:1px solid #e1e7d9;padding:10px 0 10px 13px;background:transparent;color:#303e28;font:600 16px var(--display)}.presets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:11px}.preset{min-height:44px;border:1px solid #d5ddcd;border-radius:9px;background:transparent;color:#435239;font:500 14px var(--display);transition:background .15s,border-color .15s}.preset:hover:not(:disabled),.preset[aria-pressed="true"]{background:#e0f3c5;border-color:#83a95e;color:#213c0d}.preset:disabled{opacity:.6}.amount-help{margin-top:9px;font-size:14px;color:#67745e}
+.payment-summary{margin-top:22px;display:grid;gap:9px}.summary-row{display:flex;justify-content:space-between;gap:18px;align-items:baseline;font-size:14px}.summary-row>span:first-child{color:#607055}.summary-row strong{font-size:15px;font-weight:600;text-align:right}.summary-row .later{background:#eee6fd;border-radius:5px;padding:2px 7px;color:#604884;font-size:14px;white-space:nowrap}.recipient{margin-top:16px;border-top:1px solid #d9e0d1;padding-top:14px}.recipient-top{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:14px;color:#627357}.recipient-top a{font-size:14px;text-underline-offset:3px}.wallet-address{display:block;overflow-wrap:anywhere;word-break:normal;font:400 12px/1.6 var(--display);margin-top:6px;color:#34482a}.sender-row{margin-top:9px;font-size:14px;color:#5d6d52}.sender-row code{font-size:11px}
+.contribution-consent{display:flex;gap:10px;align-items:flex-start;margin-top:17px;padding:14px;border-radius:10px;background:#edf0e6;color:#45563b;font-size:14px;line-height:1.55;cursor:pointer}.contribution-consent input{flex:0 0 auto;width:18px;height:18px;margin:2px 0 0;accent-color:#3c591e}.contribution-consent a{text-underline-offset:3px}.btn{display:inline-flex;align-items:center;justify-content:center;text-align:center;min-height:53px;width:100%;padding:13px 18px;background:var(--lime);color:#1b300b;border:1px solid #a9d455;border-radius:11px;font:600 16px/1.35 var(--display);text-decoration:none;transition:background .15s,transform .15s}.btn:hover:not(:disabled){background:#baf151;transform:translateY(-1px)}.btn:disabled{background:#e2e8d9;color:#768369;border-color:#e2e8d9}.contribution-panel>.btn{margin-top:16px}.btn.ghost{border-color:#bcc9ad;background:transparent;color:#465b33}.swap-status{font-size:14px;line-height:1.5;margin-top:12px;color:#57694a;overflow-wrap:anywhere}.swap-status.err{color:#a33424}.swap-status.ok{color:#315b18}.receipt-link{display:block;margin-top:14px;text-underline-offset:3px;color:#315b18;font-size:14px;overflow-wrap:anywhere}.wallet-hint{display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;font-size:14px;color:#66785a;margin-top:13px}.wallet-hint span{color:#3b5626}
+.fact-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.fact{display:flex;gap:13px;align-items:center}.fact-number{font:400 30px/1 var(--display);letter-spacing:-2px;color:var(--lime)}.fact strong{display:block;font-size:14px;font-weight:500}.fact p{color:var(--muted);font-size:14px;margin-top:2px}.section{padding:86px 0}.section-heading{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:34px}.section-kicker{color:var(--lime);font:500 13px var(--display);letter-spacing:.09em;text-transform:uppercase;margin-bottom:13px}h2{font:500 clamp(32px,3.5vw,46px)/1.13 var(--display);letter-spacing:-.045em}.section-heading>p{color:var(--muted);font-size:16px;max-width:45ch;justify-self:end}.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.step-card{padding:27px;border:1px solid var(--line);background:#191e19;border-radius:17px}.step-number{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:9px;background:#2c3627;color:var(--lime);font:500 14px var(--display);margin-bottom:25px}.step-card h3{font:500 22px/1.25 var(--display);letter-spacing:-.7px;margin-bottom:10px}.step-card p{color:var(--muted);font-size:16px;line-height:1.65}.step-card:last-child .step-number{background:#302b3b;color:var(--lilac)}
+.terms-banner{display:flex;gap:28px;align-items:center;justify-content:space-between;margin-top:20px;padding:23px 27px;border:1px solid #414133;background:#25271f;border-radius:14px}.terms-banner p{font-size:14px;color:#c4c9b8;max-width:80ch}.terms-banner b{color:var(--ink);font-weight:500}.terms-banner a{flex-shrink:0;font-size:14px;text-underline-offset:4px;color:var(--lime)}
+.faq-section{padding-top:0}.faq-grid{display:grid;grid-template-columns:320px minmax(0,1fr);gap:84px}.faq-intro p{margin-top:17px;font-size:16px;color:var(--muted)}.faq-intro a{display:inline-flex;margin-top:22px;color:var(--lime);font-size:14px;text-underline-offset:5px}.faq{border-top:1px solid var(--line)}.faq details{border-bottom:1px solid var(--line)}.faq summary{position:relative;list-style:none;cursor:pointer;padding:22px 35px 22px 0;font:500 17px/1.4 var(--display)}.faq summary::-webkit-details-marker{display:none}.faq summary::after{content:"+";position:absolute;right:0;top:21px;font-size:22px;color:var(--lime)}.faq details[open] summary::after{content:"−"}.faq details p{padding:0 30px 24px 0;font-size:16px;line-height:1.75;color:var(--muted)}.faq details p a{color:var(--lime);text-underline-offset:3px}
+.footer{border-top:1px solid var(--line);padding:28px 0 34px}.footer-top{display:flex;justify-content:space-between;align-items:center;gap:24px}.footer .brand{font-size:20px}.footer .brand-mark{width:28px;height:28px;font-size:17px}.footer-links{display:flex;flex-wrap:wrap;gap:20px;font-size:14px;color:var(--muted)}.footer-links a{text-decoration:none}.footer-bottom{display:flex;justify-content:space-between;gap:35px;margin-top:22px;color:#94a28d;font-size:14px;line-height:1.65}.footer-bottom p{max-width:85ch}.footer-bottom>span{white-space:nowrap}
+@media(min-width:1250px){.hero-copy{position:sticky;top:35px}}
+@media(max-width:1050px){.hero-grid{gap:35px;grid-template-columns:minmax(0,1fr) minmax(0,460px)}h1{font-size:58px}.hero-lede{font-size:18px}.faq-grid{gap:45px;grid-template-columns:280px minmax(0,1fr)}}
+@media(max-width:850px){.shell{width:min(640px,calc(100% - 40px))}.nav{min-height:74px}.nav-links>a:not(.nav-cta){display:none}.hero{padding:36px 0 42px}.hero-grid{grid-template-columns:1fr;gap:27px}.hero-copy{padding:0;text-align:center}h1{font-size:clamp(42px,7.6vw,58px);letter-spacing:-.055em;margin-top:15px}h1 br{display:none}.hero-lede{max-width:42ch;margin:16px auto 0;font-size:17px}.hero-note,.hero-tag{display:none}.contribution-panel{max-width:520px;width:100%;margin:auto;padding:26px}.section{padding:54px 0}.section-heading{grid-template-columns:1fr;gap:15px}.section-heading>p{justify-self:start}.steps{grid-template-columns:1fr}.step-card{display:grid;grid-template-columns:40px 1fr;column-gap:16px;padding:22px}.step-number{grid-row:1/3;margin:0}.step-card h3{margin-top:3px}.step-card p{grid-column:2}.faq-section{padding-top:0}.faq-grid{grid-template-columns:1fr;gap:26px}.faq-intro p{max-width:45ch}.terms-banner{align-items:flex-start;gap:16px}.fact-strip{gap:16px}.fact{align-items:flex-start;gap:8px}.fact-number{font-size:24px}.fact strong{font-size:14px}.fact p{font-size:14px}.footer-bottom{display:block}.footer-bottom>span{display:block;margin-top:12px}}
+@media(max-width:450px){.nav{gap:12px}.brand{gap:8px}.nav-links{gap:0}.shell{width:calc(100% - 28px)}.brand{font-size:21px}.brand-mark{width:30px;height:30px}.nav-links .nav-cta{padding:8px 12px;font-size:14px}.hero{padding-top:28px}.eyebrow{font-size:11px}h1{font-size:43px}.hero-lede{font-size:16px}.contribution-panel{padding:21px 18px;border-radius:20px}.panel-title{font-size:25px}.step-label{font-size:11px}.amount-row input{font-size:46px}.presets{gap:6px}.preset{font-size:13px}.contribution-consent{font-size:14px;padding:12px}.fact-strip{grid-template-columns:1fr;gap:18px;padding:24px 10px}.fact strong{font-size:14px}.fact p{font-size:14px}.fact-number{font-size:26px;width:35px}.terms-banner{flex-direction:column}.footer-top{align-items:flex-start;flex-direction:column}.footer-links{font-size:14px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
 </style>
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "$LAPTOP",
-  "alternateName": "The Laptop Coin",
-  "url": "https://laptop-airdrop.bluefootprovider.workers.dev/",
-  "description": "$LAPTOP — an independent memecoin on Base about the most talked-about object in American politics. Launch: September 9.",
-  "inLanguage": "en"
-}
+{"@context":"https://schema.org","@type":"WebSite","name":"$LAPTOP Airdrop","url":"https://laptop-airdrop.bluefootprovider.workers.dev/","description":"Direct contributions on Base for a planned manual token distribution. Allocation amounts are not fixed.","inLanguage":"en"}
 </script>
 </head>
 <body>
-
-<style>
-  :root{
-    --void:      #06080B;
-    --panel:     #0D1117;
-    --panel-2:   #11181F;
-    --line:      #1E2731;
-    --line-soft: #161D25;
-    --ink:       #E8EFF5;
-    --dim:       #7B8A99;
-    --amber:     #FFC24B;
-    --amber-dim: #A87A20;
-    --red:       #FF5B49;
-    --display: "Anton", "Arial Narrow", Impact, sans-serif;
-    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-    --pad: clamp(20px, 5vw, 64px);
-    --maxw: 1120px;
-  }
-
-  * { box-sizing: border-box; }
-
-  html{
-    scroll-behavior: smooth;
-    scroll-padding-top: 72px;   /* anchors clear the sticky bar */
-  }
-  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } }
-
-  ::selection{ background: var(--amber); color: #120C00; }
-
-  body{
-    background: var(--void);
-    color: var(--ink);
-    font-family: var(--sans);
-    font-size: 16px;
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-
-  a { color: var(--amber); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-visible{
-    outline: 2px solid var(--amber); outline-offset: 3px;
-  }
-
-  .wrap{ max-width: var(--maxw); margin: 0 auto; padding-inline: var(--pad); }
-
-  .label{
-    font-family: var(--mono); font-size: 11px; letter-spacing: .18em;
-    text-transform: uppercase; color: var(--dim);
-  }
-
-  /* ── status bar ─────────────────────────────────────── */
-  .bar{
-    position: sticky; top: 0; z-index: 50;
-    display: flex; align-items: center; gap: 14px;
-    padding: 10px var(--pad);
-    background: rgba(6,8,11,.9);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
-    font-family: var(--mono); font-size: 12px;
-  }
-  .bar .mark{ color: var(--ink); font-weight: 600; letter-spacing: .06em; }
-  .bar .sep{ color: var(--line); }
-  .bar .meta{ color: var(--dim); }
-  .bar .date{ display: none; margin-left: auto; color: var(--amber); letter-spacing: .12em; }
-  @media (min-width: 760px){ .bar .date{ display: inline; } }
-  .bar .ask{
-    display: none; color: var(--dim); text-decoration: none;
-    border-bottom: 1px dashed var(--line); padding-bottom: 2px;
-  }
-  .bar .ask:hover{ color: var(--amber); border-color: var(--amber-dim); }
-  @media (min-width: 1000px){ .bar .ask{ display: inline-block; margin-left: 20px; } }
-
-  .btn{
-    font-family: var(--mono); font-size: 12px; font-weight: 600;
-    letter-spacing: .1em; text-transform: uppercase;
-    padding: 9px 16px; border: 1px solid var(--amber);
-    background: var(--amber); color: #120C00;
-    text-decoration: none; cursor: pointer; display: inline-block;
-    transition: transform .12s ease, background .12s ease;
-  }
-  .btn:hover{ background: #FFD37A; transform: translateY(-1px); }
-  .btn.ghost{ background: transparent; color: var(--amber); }
-  .btn.ghost:hover{ background: rgba(255,194,75,.1); }
-  .btn:disabled{ opacity: .45; cursor: not-allowed; transform: none; }
-  .bar .btn{ margin-left: 16px; padding: 7px 13px; }
-  @media (max-width: 759px){ .bar .btn{ margin-left: auto; } }
-
-  /* ── ticker strip ───────────────────────────────────── */
-  .strip{
-    border-bottom: 1px solid var(--line); background: var(--panel);
-    overflow: hidden; white-space: nowrap;
-    font-family: var(--mono); font-size: 12px; letter-spacing: .14em;
-    text-transform: uppercase; color: var(--dim); padding: 9px 0;
-  }
-  .strip span{ display: inline-block; padding-inline: 22px; }
-  .strip b{ color: var(--amber); font-weight: 500; }
-  .strip-inner{ display: inline-block; animation: slide 36s linear infinite; }
-  @keyframes slide{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce){ .strip-inner{ animation: none; } }
-
-  /* ── hero ───────────────────────────────────────────── */
-  .hero{ padding: clamp(46px, 8vw, 92px) 0 clamp(38px, 6vw, 68px); }
-  .hero .eyebrow{ margin-bottom: 24px; }
-  .wordmark{
-    font-family: var(--display); font-size: clamp(74px, 20.5vw, 240px);
-    line-height: .8; letter-spacing: -.02em; margin: 0;
-  }
-  .wordmark .dollar{ color: var(--amber); }
-  .dateline{
-    font-family: var(--display); font-size: clamp(30px, 7.4vw, 88px);
-    line-height: .9; margin: 10px 0 0;
-    color: transparent; -webkit-text-stroke: 1.4px var(--amber-dim);
-  }
-  .hero-lede{
-    font-size: clamp(20px, 2.6vw, 30px); line-height: 1.3;
-    max-width: 24ch; margin: 0; font-weight: 500; text-wrap: balance;
-  }
-  .hero-sub{ color: var(--dim); max-width: 56ch; margin: 20px 0 0; font-size: 16px; }
-  .hero-cta{ display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-
-  .hero-grid{
-    margin-top: 34px; display: grid; grid-template-columns: 1fr; gap: 34px; align-items: center;
-  }
-  @media (min-width: 980px){ .hero-grid{ grid-template-columns: 1fr 440px; gap: 48px; } }
-  .hero-col{ min-width: 0; }
-
-  /* countdown */
-  .cd{
-    margin-top: 22px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1px; background: var(--line); border: 1px solid var(--line); max-width: 440px;
-  }
-  .cd-cell{ background: var(--void); padding: 12px 8px; text-align: center; }
-  .cd-n{
-    font-family: var(--display); font-size: clamp(26px, 4.2vw, 40px); line-height: 1;
-    color: var(--amber); font-variant-numeric: tabular-nums;
-  }
-  .cd-k{
-    font-family: var(--mono); font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase;
-    color: var(--dim); margin-top: 6px;
-  }
-  .cd.live{ grid-template-columns: 1fr; }
-  .cd.live .cd-n{ letter-spacing: .04em; }
-
-  /* laptop drawing */
-  .laptop-art{ width: 100%; height: auto; display: block; }
-  .laptop-art .scr{ fill: var(--panel-2); stroke: var(--amber-dim); stroke-width: 1.5; }
-  .laptop-art .body{ fill: var(--panel); stroke: var(--amber-dim); stroke-width: 1.5; }
-  .laptop-art .hair{ stroke: var(--line); stroke-width: 1; fill: none; }
-  .laptop-art text{ font-family: var(--mono); font-size: 15px; fill: var(--dim); }
-  .laptop-art text.hi{ fill: var(--amber); }
-  .laptop-art .caret{ fill: var(--amber); animation: blink 1.1s steps(1) infinite; }
-  @media (prefers-reduced-motion: reduce){ .laptop-art .caret{ animation: none; } }
-
-  .ca{
-    margin-top: 28px; border: 1px solid var(--line); background: var(--panel);
-    display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 14px;
-  }
-  .ca .label{ flex-shrink: 0; }
-  .ca code{
-    font-family: var(--mono); font-size: 13px; color: var(--ink);
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 200px;
-  }
-  .copy{
-    font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
-    background: transparent; border: 1px solid var(--line); color: var(--dim);
-    padding: 6px 11px; cursor: pointer;
-  }
-  .copy:hover{ color: var(--amber); border-color: var(--amber-dim); }
-
-  /* ── generic section ────────────────────────────────── */
-  section{ border-top: 1px solid var(--line-soft); }
-  .sec{ padding: clamp(46px, 7vw, 84px) 0; }
-  h2{
-    font-family: var(--display); font-size: clamp(34px, 5.2vw, 60px);
-    line-height: .95; margin: 12px 0 0; text-wrap: balance;
-  }
-  .sec-intro{ color: var(--dim); max-width: 62ch; margin: 18px 0 0; }
-  .src{ margin-top: 20px; font-family: var(--mono); font-size: 11px; color: var(--dim); line-height: 1.7; }
-
-  /* ── reel ───────────────────────────────────────────── */
-  .reel{
-    margin-top: 34px; border: 1px solid var(--line); background: var(--panel-2);
-    aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-  .reel video{ width: 100%; height: 100%; object-fit: cover; display: block; }
-  .slot{ text-align: center; padding: 24px; }
-  .slot .glyph{ font-family: var(--display); font-size: 46px; color: var(--line); line-height: 1; }
-  .slot p{ margin: 12px 0 0; font-family: var(--mono); font-size: 11px; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--dim); }
-
-  /* ── timeline ───────────────────────────────────────── */
-  .tl{ margin-top: 40px; }
-  .tl-row{
-    display: grid; grid-template-columns: 1fr; gap: 4px;
-    padding: 20px 0; border-top: 1px solid var(--line-soft);
-  }
-  @media (min-width: 780px){ .tl-row{ grid-template-columns: 176px 1fr; gap: 32px; align-items: baseline; } }
-  .tl-row:first-child{ border-top: 0; }
-  .tl-when{
-    font-family: var(--mono); font-size: 12px; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--amber); white-space: nowrap;
-  }
-  .tl-what{ margin: 0; font-size: 16px; max-width: 64ch; }
-  .tl-what em{ color: var(--dim); font-style: normal; display: block; margin-top: 5px; font-size: 14.5px; }
-  .tl-row.now .tl-what{ font-size: 19px; font-weight: 600; }
-  .tl-row.now{ background: rgba(255,194,75,.05); }
-  @media (min-width: 780px){ .tl-row.now{ padding-inline: 16px; margin-inline: -16px; } }
-
-  /* ── airdrop ────────────────────────────────────────── */
-  .airdrop-sec{ background: var(--panel); }
-  .drop{ margin-top: 38px; }
-  .drop > summary{
-    list-style: none; cursor: pointer;
-    display: grid; grid-template-columns: 1fr; gap: 16px;
-    justify-items: center; text-align: center;
-    background: var(--amber); color: #120C00;
-    padding: clamp(30px, 5vw, 62px) clamp(16px, 3vw, 34px);
-    transition: background .14s ease;
-  }
-  .drop > summary:hover{ background: #FFD37A; }
-  .drop > summary::-webkit-details-marker{ display: none; }
-  .drop > summary::after{ content: none; }
-  .drop-word{
-    font-family: var(--display); font-size: clamp(58px, 15.5vw, 190px);
-    line-height: .82; letter-spacing: -.015em; display: block; margin: -.06em 0 -.18em;
-  }
-  .drop-cta{
-    font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .14em;
-    text-transform: uppercase; display: flex; align-items: center; gap: 10px; white-space: nowrap;
-  }
-  .drop-cta::after{ content: "\2193"; font-size: 16px; }
-  .drop[open] .drop-cta::after{ content: "\2191"; }
-  .drop-body{
-    border: 1px solid var(--amber-dim); border-top: 0;
-    padding: clamp(22px, 3vw, 32px) clamp(20px, 3vw, 34px); background: var(--void);
-  }
-  .crit{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-  .crit li{
-    display: grid; grid-template-columns: 1fr; gap: 4px;
-    padding: 18px 0; border-top: 1px solid var(--line-soft);
-  }
-  .crit li:first-child{ border-top: 0; padding-top: 0; }
-  @media (min-width: 780px){ .crit li{ grid-template-columns: 34px 1fr auto; gap: 22px; align-items: baseline; } }
-  .crit .i{ font-family: var(--mono); font-size: 12px; color: var(--amber); letter-spacing: .1em; }
-  .crit h3{ margin: 0; font-size: 18px; font-weight: 600; }
-  .crit p{ margin: 5px 0 0; color: var(--dim); font-size: 14.5px; max-width: 58ch; }
-  .tba{
-    font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
-    border: 1px solid var(--line); color: var(--dim); padding: 4px 9px;
-    justify-self: start; white-space: nowrap; align-self: center;
-  }
-  @media (min-width: 780px){ .tba{ justify-self: end; } }
-  .drop-connect{
-    margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--line);
-    display: grid; grid-template-columns: 1fr; gap: 18px; align-items: center;
-  }
-  @media (min-width: 820px){ .drop-connect{ grid-template-columns: 1fr 260px; gap: 32px; } }
-  .dc-copy h3{ margin: 0; font-size: 19px; font-weight: 600; }
-  .dc-copy p{ margin: 6px 0 0; color: var(--dim); font-size: 14.5px; max-width: 56ch; }
-  .dc-action{ display: flex; flex-direction: column; gap: 10px; }
-  .dc-action .btn{ width: 100%; text-align: center; padding: 14px; }
-  .dc-status{
-    font-family: var(--mono); font-size: 11px; line-height: 1.6; color: var(--dim);
-    border-left: 2px solid var(--line); padding-left: 10px; min-height: 2.4em;
-  }
-  .dc-status.ok{ color: var(--amber); border-color: var(--amber-dim); }
-  .dc-status.err{ color: var(--red); border-color: var(--red); }
-
-  .drop-note{
-    margin: 26px 0 0; padding-top: 20px; border-top: 1px solid var(--line);
-    color: var(--dim); font-size: 13.5px; max-width: 72ch; line-height: 1.6;
-  }
-  .drop-note strong{ color: var(--ink); }
-
-  /* ── facts ──────────────────────────────────────────── */
-  .facts{ margin-top: 36px; display: grid; gap: 1px; background: var(--line);
-    border: 1px solid var(--line); grid-template-columns: 1fr; }
-  @media (min-width: 700px){ .facts{ grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1000px){ .facts{ grid-template-columns: repeat(4, 1fr); } }
-  .fact{ background: var(--void); padding: 22px 20px; display: flex; flex-direction: column; gap: 7px; }
-  .fact .k{ font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
-  .fact .v{ font-family: var(--display); font-size: clamp(24px, 3vw, 32px); line-height: 1; }
-  .fact .v.sm{ font-size: 20px; }
-  .fact p{ margin: 0; color: var(--dim); font-size: 13.5px; }
-
-  /* ── verify ─────────────────────────────────────────── */
-  .verify{ margin-top: 34px; border-top: 1px solid var(--line-soft); }
-  .v-row{
-    display: grid; grid-template-columns: 1fr; gap: 6px;
-    padding: 18px 0; border-bottom: 1px solid var(--line-soft); align-items: baseline;
-  }
-  @media (min-width: 820px){ .v-row{ grid-template-columns: 200px 1fr auto; gap: 28px; } }
-  .v-k{ font-family: var(--mono); font-size: 12px; letter-spacing: .1em; color: var(--ink); }
-  .v-p{ margin: 0; color: var(--dim); font-size: 14.5px; max-width: 62ch; }
-  .v-link{
-    font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--amber); text-decoration: none; border: 1px solid var(--line);
-    padding: 6px 12px; justify-self: start; white-space: nowrap;
-  }
-  @media (min-width: 820px){ .v-link{ justify-self: end; } }
-  .v-link:hover{ border-color: var(--amber-dim); background: rgba(255,194,75,.08); }
-  /* Not links yet: nothing to point at until the contract is deployed. */
-  .v-link[aria-disabled], .links a[aria-disabled]{ opacity: .55; cursor: default; }
-  .v-link[aria-disabled]:hover{ border-color: var(--line); background: none; }
-  .links a[aria-disabled]:hover{ color: var(--ink); border-color: var(--line); }
-
-  /* ── swap ───────────────────────────────────────────── */
-  .swap{
-    margin-top: 36px; display: grid; grid-template-columns: 1fr; gap: 1px;
-    background: var(--line); border: 1px solid var(--line);
-  }
-  @media (min-width: 940px){ .swap{ grid-template-columns: 1fr 440px; } }
-  .swap-copy{ background: var(--void); padding: clamp(20px, 3vw, 36px); min-width: 0;
-    display: flex; flex-direction: column; gap: 14px; justify-content: center; }
-  .swap-copy h3{ font-family: var(--display); font-size: clamp(26px, 3.4vw, 40px); line-height: 1; margin: 0; }
-  .swap-copy p{ margin: 0; color: var(--dim); font-size: 15px; max-width: 46ch; }
-  .swap-copy ol{ margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; counter-reset: s; }
-  .swap-copy li{ font-size: 14px; color: var(--dim); display: grid; grid-template-columns: 24px 1fr; gap: 12px; }
-  .swap-copy li::before{
-    counter-increment: s; content: counter(s, decimal-leading-zero);
-    font-family: var(--mono); font-size: 11px; color: var(--amber); letter-spacing: .1em; padding-top: 3px;
-  }
-  .swap-copy li b{ color: var(--ink); font-weight: 600; }
-
-  .swap-panel{ background: var(--panel); padding: clamp(16px, 2.4vw, 26px); min-width: 0;
-    display: flex; flex-direction: column; gap: 14px; }
-  .field{ border: 1px solid var(--line); background: var(--void); padding: 14px; display: grid; gap: 8px; }
-  .field .k{ font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
-  .field-row{ display: flex; align-items: center; gap: 10px; min-width: 0; }
-  .field input{
-    flex: 1 1 auto; min-width: 0; width: 100%; background: transparent; border: 0; color: var(--ink);
-    font-family: var(--display); font-size: 30px; letter-spacing: .01em; padding: 0;
-  }
-  .field input::placeholder{ color: var(--line); }
-  .field select{
-    flex: 0 0 auto; background: var(--panel-2); border: 1px solid var(--amber-dim);
-    color: var(--amber); font-family: var(--mono); font-size: 12px; font-weight: 600;
-    letter-spacing: .08em; padding: 10px 12px; cursor: pointer;
-  }
-  .field .out{ font-family: var(--display); font-size: 30px; color: var(--ink); overflow: hidden; text-overflow: ellipsis; }
-  .field .out.idle{ color: var(--line); }
-  .swap-status{
-    font-family: var(--mono); font-size: 11.5px; line-height: 1.6; color: var(--dim);
-    min-height: 2.6em; border-left: 2px solid var(--line); padding-left: 12px;
-  }
-  .swap-status.err{ color: var(--red); border-color: var(--red); }
-  .swap-status.ok{ color: var(--amber); border-color: var(--amber-dim); }
-  .swap-panel .btn{ width: 100%; text-align: center; padding: 15px; }
-  .swap-foot{ font-family: var(--mono); font-size: 10.5px; color: var(--dim); letter-spacing: .04em; text-align: center; }
-  .swap-foot a{ color: var(--dim); }
-
-  /* ── chart ──────────────────────────────────────────── */
-  .chart-box{
-    margin-top: 34px; border: 1px solid var(--line); background: var(--panel-2);
-    height: clamp(320px, 46vw, 520px); display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-  .chart-box iframe{ width: 100%; height: 100%; border: 0; display: block; }
-
-  /* ── steps ──────────────────────────────────────────── */
-  .steps{ margin-top: 36px; display: grid; gap: 1px; background: var(--line);
-    border: 1px solid var(--line); grid-template-columns: 1fr; }
-  @media (min-width: 760px){ .steps{ grid-template-columns: repeat(4, 1fr); } }
-  .step{ background: var(--void); padding: 24px 20px; display: flex; flex-direction: column; gap: 8px; }
-  .step .n{ font-family: var(--mono); font-size: 11px; letter-spacing: .16em; color: var(--amber); }
-  .step h3{ font-size: 17px; margin: 0; font-weight: 600; }
-  .step p{ margin: 0; color: var(--dim); font-size: 14px; }
-
-  /* ── airdrop band ───────────────────────────────────── */
-  .band{ border-top: 1px solid var(--line-soft); background: var(--panel); }
-  .band-in{ padding: clamp(38px, 5.5vw, 62px) 0; display: grid; gap: 20px;
-    grid-template-columns: 1fr; align-items: center; }
-  @media (min-width: 860px){ .band-in{ grid-template-columns: 1fr auto; gap: 40px; } }
-  .band h2{ margin: 0; }
-  .band p{ margin: 12px 0 0; color: var(--dim); max-width: 54ch; }
-  .band .btn{ padding: 15px 26px; font-size: 13px; justify-self: start; }
-
-  /* ── faq ────────────────────────────────────────────── */
-  .faq{ margin-top: 32px; border-top: 1px solid var(--line-soft); }
-  details.q{ border-bottom: 1px solid var(--line-soft); }
-  details.q summary{
-    cursor: pointer; padding: 18px 0; font-size: 17px; font-weight: 600;
-    list-style: none; display: flex; gap: 16px; align-items: baseline;
-  }
-  details.q summary::-webkit-details-marker{ display: none; }
-  details.q summary::after{ content: "+"; margin-left: auto; color: var(--amber); font-family: var(--mono); font-size: 18px; }
-  details.q[open] summary::after{ content: "\2212"; }
-  details.q p{ margin: 0 0 20px; color: var(--dim); max-width: 68ch; font-size: 15px; }
-
-  /* ── footer ─────────────────────────────────────────── */
-  footer{ padding: clamp(44px, 6vw, 72px) 0 60px; border-top: 1px solid var(--line-soft); }
-  .foot-word{
-    font-family: var(--display); font-size: clamp(54px, 15vw, 170px); line-height: .8;
-    color: var(--panel-2); margin: 0 0 34px; letter-spacing: -.02em;
-  }
-  .foot-grid{ display: grid; gap: 26px; grid-template-columns: 1fr; }
-  @media (min-width: 820px){ .foot-grid{ grid-template-columns: 1.5fr 1fr; gap: 48px; } }
-  .risk{ font-size: 13px; color: var(--dim); line-height: 1.65; margin: 0; }
-  .risk strong{ color: var(--ink); }
-  .links{ display: flex; flex-direction: column; gap: 10px; font-family: var(--mono); font-size: 13px; }
-  .links a{ color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line);
-    padding-bottom: 8px; display: flex; align-items: baseline; gap: 12px; }
-  .links a:hover{ color: var(--amber); border-color: var(--amber-dim); }
-  .links .soon{
-    margin-left: auto; font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
-    color: var(--amber); border: 1px solid var(--amber-dim); padding: 3px 7px;
-  }
-  .cursor{ display: inline-block; width: 9px; height: 1.05em; background: var(--amber);
-    vertical-align: -2px; animation: blink 1.1s steps(1) infinite; }
-  @keyframes blink{ 50%{ opacity: 0; } }
-  @media (prefers-reduced-motion: reduce){ .cursor{ animation: none; } }
-
-  /* ── polish: micro-interactions ─────────────────────── */
-  .tl-row, .v-row, .crit li, .fact, .step{
-    transition: background .18s ease, border-color .18s ease;
-  }
-  .tl-row:hover{ background: rgba(255,194,75,.035); }
-  .tl-row.now:hover{ background: rgba(255,194,75,.08); }
-  .v-row:hover{ background: rgba(255,194,75,.03); }
-  .crit li:hover{ background: rgba(255,194,75,.03); }
-  .fact:hover, .step:hover{ background: var(--panel); }
-
-  .fact .v, .step h3{ transition: color .18s ease; }
-  .fact:hover .v{ color: var(--amber); }
-
-  details.q summary{ transition: color .16s ease; }
-  details.q summary:hover{ color: var(--amber); }
-  details.q summary::after{ transition: transform .18s ease; }
-  details.q[open] summary::after{ transform: rotate(180deg); }
-
-  .drop[open] .drop-body{ animation: reveal .26s ease-out; }
-  @keyframes reveal{
-    from{ opacity: 0; transform: translateY(-6px); }
-    to{ opacity: 1; transform: none; }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .drop[open] .drop-body{ animation: none; }
-    .tl-row, .v-row, .crit li, .fact, .step, .btn, details.q summary{ transition: none; }
-  }
-
-  .copy, .v-link, .links a{ transition: color .16s ease, border-color .16s ease, background .16s ease; }
-  .reel{ transition: border-color .2s ease; }
-  .reel:hover{ border-color: var(--amber-dim); }
-</style>
-
-<!-- ══ STATUS BAR ══ -->
-<div class="bar">
-  <span class="mark">$LAPTOP</span>
-  <span class="sep">/</span>
-  <span class="meta">BASE · ERC-20</span>
-  <span class="date">SEPT 9</span>
-  <a class="ask" href="#airdrop">How does distribution work?</a>
-  <a class="btn" href="#buy">Contribute</a>
+<a class="skip" href="#participate">Skip to contribution form</a>
+<header class="topbar">
+  <div class="shell nav">
+    <a class="brand" href="#" aria-label="$LAPTOP home"><span class="brand-mark" aria-hidden="true">L_</span>$LAPTOP</a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#how-it-works">How it works</a>
+      <a href="#questions">Questions</a>
+      <a class="nav-cta" href="#participate">Choose amount ↗</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero" aria-labelledby="hero-title">
+  <div class="shell hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Independent project · On Base</span>
+      <h1 id="hero-title">The $LAPTOP<br>airdrop.<br><span class="accent">Your amount.<br>Your choice.</span></h1>
+      <p class="hero-lede"><strong>Contribute now. Tokens later.</strong><br>Choose an amount you are comfortable sending. The organizer handles the token distribution after launch.</p>
+      <div class="hero-note"><span class="note-symbol" aria-hidden="true">↳</span><p><b>The token is not live yet.</b><br>Token amounts will be decided by the organizer later. There is no fixed rate or guaranteed allocation.</p></div>
+      <div class="hero-tag"><span class="tag-label">YOU DECIDE</span><span>The amount. The confirmation.</span></div>
+    </div>
+    <section class="contribution-panel" id="participate" aria-labelledby="form-title">
+      <div class="panel-top"><span class="step-label" id="flow-step">01 / CHOOSE YOUR AMOUNT</span><span class="network"><i aria-hidden="true"></i>Base network</span></div>
+      <h2 class="panel-title" id="form-title">Make it your amount.</h2>
+      <p class="panel-sub">Choose a preset or enter your own contribution.</p>
+      <div class="amount-field">
+        <label class="field-label" for="amount">You send</label>
+        <div class="amount-row">
+          <input id="amount" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off" maxlength="80" aria-describedby="amount-help">
+          <select id="sell-token" aria-label="Contribution currency"><option value="eth">ETH</option><option value="usdc">USDC</option></select>
+        </div>
+      </div>
+      <div class="presets" role="group" aria-label="Suggested amounts in the selected currency">
+        <button class="preset" id="preset-0" type="button" aria-pressed="false" aria-label="Choose 0.001 ETH">0.001</button>
+        <button class="preset" id="preset-1" type="button" aria-pressed="false" aria-label="Choose 0.005 ETH">0.005</button>
+        <button class="preset" id="preset-2" type="button" aria-pressed="false" aria-label="Choose 0.01 ETH">0.01</button>
+        <button class="preset" id="preset-3" type="button" aria-pressed="false" aria-label="Choose 0.025 ETH">0.025</button>
+      </div>
+      <p class="amount-help" id="amount-help">Always on Base. Network fees are shown in your wallet.</p>
+      <div class="payment-summary" aria-label="Payment summary">
+        <div class="summary-row"><span>Your contribution</span><strong id="contribution-summary">Choose your amount</strong></div>
+        <div class="summary-row"><span>Token amount</span><span class="later">Decided after launch</span></div>
+      </div>
+      <div class="recipient">
+        <div class="recipient-top"><span>Goes directly to the organizer</span><a id="contribution-wallet-link" target="_blank" rel="noopener noreferrer" hidden>Check wallet ↗</a></div>
+        <code class="wallet-address" id="contribution-recipient">0x4704c46857f175b12b86428c9b0a3fd32b991af4</code>
+        <div class="sender-row" id="contribution-sender-row" hidden>Your wallet<code class="wallet-address" id="contribution-sender">Not connected</code></div>
+      </div>
+      <label class="contribution-consent">
+        <input id="contribution-terms" type="checkbox">
+        <span>I understand: my contribution goes to the organizer now. Tokens are planned for later; the organizer decides the amount, and no allocation is guaranteed.</span>
+      </label>
+      <button class="btn" id="contribute-btn" type="button" disabled>Choose an amount to continue</button>
+      <div class="swap-status" id="contribution-status" role="status" aria-live="polite">Choose your amount, then continue with your wallet.</div>
+      <a class="receipt-link" id="contribution-receipt" target="_blank" rel="noopener noreferrer" hidden>View transfer receipt on Basescan</a>
+      <button class="btn ghost" id="contribute-again" type="button" hidden>Make another contribution</button>
+      <p class="wallet-hint"><span aria-hidden="true">✓</span> You confirm the payment in your wallet.</p>
+      <noscript><p>Enable JavaScript to use this form. This page cannot send a payment while JavaScript is disabled.</p></noscript>
+    </section>
+  </div>
+</section>
+<div class="shell fact-strip" aria-label="What you control">
+  <div class="fact"><span class="fact-number">01</span><div><strong>You choose the amount</strong><p>Presets or a custom contribution.</p></div></div>
+  <div class="fact"><span class="fact-number">02</span><div><strong>You confirm the payment</strong><p>The recipient is visible before sending.</p></div></div>
+  <div class="fact"><span class="fact-number">03</span><div><strong>You keep the receipt</strong><p>Every confirmed transfer is recorded on Base.</p></div></div>
 </div>
-
-<!-- ══ TICKER STRIP ══ -->
-<div class="strip" aria-hidden="true">
-  <div class="strip-inner">
-    <span>Six years of headlines <b>·</b> One hard drive <b>·</b> Zero people who saw it</span>
-    <span>Token distribution <b>later</b> <b>·</b> CA <b>soon</b> <b>·</b> Socials <b>soon</b></span>
-    <span>Your amount <b>·</b> Direct contribution <b>·</b> Tokens later</span>
-    <span>September 9 <b>·</b> Base <b>·</b> Built on Coinbase's L2</span>
-    <span>Six years of headlines <b>·</b> One hard drive <b>·</b> Zero people who saw it</span>
-    <span>Token distribution <b>later</b> <b>·</b> CA <b>soon</b> <b>·</b> Socials <b>soon</b></span>
-    <span>Your amount <b>·</b> Direct contribution <b>·</b> Tokens later</span>
-    <span>September 9 <b>·</b> Base <b>·</b> Built on Coinbase's L2</span>
+<section class="section shell" id="how-it-works" aria-labelledby="how-title">
+  <div class="section-heading"><div><p class="section-kicker">A clear next step</p><h2 id="how-title">From your choice<br>to your wallet.</h2></div><p>No amount is selected for you. Start with what you want to contribute, and review everything before you send.</p></div>
+  <div class="steps">
+    <article class="step-card"><span class="step-number">01</span><h3>Set your amount.</h3><p>Choose ETH or USDC on Base. Use a quick amount or type your own. You can change it before confirming.</p></article>
+    <article class="step-card"><span class="step-number">02</span><h3>Review. Then send.</h3><p>Connect your wallet, read the terms, and confirm the exact payment and network fee. Connecting alone moves nothing.</p></article>
+    <article class="step-card"><span class="step-number">03</span><h3>Keep your receipt.</h3><p>Your contribution is recorded on Base. The organizer plans to send tokens manually after launch and decides the amount later.</p></article>
   </div>
-</div>
-
-<!-- ══ HERO ══ -->
-<section style="border-top:0">
-  <div class="wrap hero">
-    <div class="label eyebrow">Base · Token planned · Contributions</div>
-    <h1 class="wordmark"><span class="dollar">$</span>LAPTOP</h1>
-    <p class="dateline">SEPTEMBER 9</p>
-
-    <div class="hero-grid">
-      <div class="hero-col">
-        <p class="hero-lede">The most talked-about object in American politics. Nobody ever showed it to you.</p>
-        <p class="hero-sub">
-          A repair shop in Delaware, an FBI subpoena, a front page, two platforms throttling a link,
-          fifty-one signatures, three forensic analyses and a federal trial — over a hard drive that
-          spent six years being described and never once being handed over. $LAPTOP is a memecoin
-          about that, planned on Base. The token is not created yet: a project, a planned launch, and a story everyone
-          already knows.
-        </p>
-        <div class="cd" id="countdown" aria-live="off">
-          <div class="cd-cell"><div class="cd-n" id="cd-d">—</div><div class="cd-k">Days</div></div>
-          <div class="cd-cell"><div class="cd-n" id="cd-h">—</div><div class="cd-k">Hours</div></div>
-          <div class="cd-cell"><div class="cd-n" id="cd-m">—</div><div class="cd-k">Minutes</div></div>
-          <div class="cd-cell"><div class="cd-n" id="cd-s">—</div><div class="cd-k">Seconds</div></div>
-        </div>
-        <div class="hero-cta">
-          <a class="btn" href="#buy">Contribute</a>
-          <a class="btn ghost" href="#airdrop">Read distribution terms</a>
-          <a class="btn ghost" href="#story">Read the file</a>
-        </div>
-      </div>
-
-      <div class="hero-col">
-        <svg class="laptop-art" viewBox="0 0 460 330" role="img"
-             aria-label="A laptop screen showing a directory listing with zero files.">
-          <rect class="scr" x="46" y="14" width="368" height="248" rx="4"></rect>
-          <rect class="hair" x="60" y="28" width="340" height="220" rx="2"></rect>
-          <text x="76" y="72">C:\&gt; dir laptop</text>
-          <text x="76" y="106">Volume in drive C has no label</text>
-          <text x="76" y="140">Directory of C:\evidence</text>
-          <text x="76" y="182" class="hi">0 File(s)</text>
-          <text x="76" y="212" class="hi">0 bytes</text>
-          <text x="76" y="240">C:\&gt;</text>
-          <rect class="caret" x="122" y="228" width="11" height="16"></rect>
-          <path class="body" d="M18 300 L442 300 L406 264 L54 264 Z"></path>
-          <line class="hair" x1="196" y1="272" x2="264" y2="272"></line>
-          <rect class="hair" x="10" y="300" width="440" height="9" rx="4"></rect>
-        </svg>
-      </div>
-    </div>
-
-    <div class="ca">
-      <span class="label">CA</span>
-      <!-- EDIT: paste your Base contract address here on launch day -->
-      <code id="ca-text">not created yet — planned launch September 9</code>
-      <button class="copy" id="copy-btn" type="button">Copy</button>
-    </div>
-  </div>
+  <div class="terms-banner" id="distribution-terms"><p><b>Know what participation means.</b> This is a paid contribution, not a free token claim or an instant swap. No token price, fixed allocation or return is promised. Confirmed payments cannot be undone by this site.</p><a href="#questions">Read the details ↗</a></div>
 </section>
-
-<!-- ══ THE REEL ══ -->
-<section>
-  <div class="wrap sec">
-    <div class="label">The reel</div>
-    <h2>Six years in ninety seconds.</h2>
-    <p class="sec-intro">
-      Every anchor, every hearing, every denial and every confirmation, cut together.
-      It is the only version of this laptop anyone has ever actually been shown.
-    </p>
-    <div class="reel">
-      <!-- EDIT: replace with your clip →
-           <video src="reel.mp4" autoplay muted loop playsinline poster="poster.jpg"></video> -->
-      <div class="slot">
-        <div class="glyph">▶</div>
-        <p>Video slot — drop your clip here</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ THE STORY ══ -->
-<section id="story">
-  <div class="wrap sec">
-    <div class="label">Chain of custody</div>
-    <h2>What actually happened,<br>with dates.</h2>
-    <p class="sec-intro">
-      No conspiracy, no spin, no takes. Just the public record of an object that shaped an
-      election cycle and then a court case, from the reporting of the outlets that chased it.
-    </p>
-
-    <div class="tl">
-      <div class="tl-row">
-        <div class="tl-when">April 2019</div>
-        <p class="tl-what">A laptop is left at a repair shop in Wilmington, Delaware.
-          <em>The shop owner says the customer identified himself as Hunter Biden. It is never collected.</em></p>
-      </div>
-      <div class="tl-row">
-        <div class="tl-when">December 2019</div>
-        <p class="tl-what">The FBI seizes the machine under a grand jury subpoena.
-          <em>Investigators later conclude it was genuinely his and showed no sign of tampering.</em></p>
-      </div>
-      <div class="tl-row">
-        <div class="tl-when">October 14, 2020</div>
-        <p class="tl-what">The New York Post publishes emails from the drive, three weeks before the election.
-          <em>Twitter and Facebook restrict the story's distribution the same day.</em></p>
-      </div>
-      <div class="tl-row">
-        <div class="tl-when">October 19, 2020</div>
-        <p class="tl-what">Fifty-one former intelligence officials sign a letter calling the material consistent with "a Russian information operation."
-          <em>The Director of National Intelligence states publicly that it is not part of a Russian disinformation campaign. Both statements stand in the record.</em></p>
-      </div>
-      <div class="tl-row">
-        <div class="tl-when">March 2022</div>
-        <p class="tl-what">The Washington Post and the New York Times authenticate a portion of the emails.
-          <em>Five hundred days after the story that nobody was allowed to share.</em></p>
-      </div>
-      <div class="tl-row">
-        <div class="tl-when">November 2022</div>
-        <p class="tl-what">A CBS News forensic analysis finds the data consistent with ordinary everyday use, with no evidence of modification or fabrication.</p>
-      </div>
-      <div class="tl-row">
-        <div class="tl-when">June 2024</div>
-        <p class="tl-what">Federal prosecutors enter the laptop into evidence at trial.
-          <em>It becomes an exhibit. It never becomes something you can look at.</em></p>
-      </div>
-      <div class="tl-row now">
-        <div class="tl-when">September 9</div>
-        <p class="tl-what">It becomes a contract address on Base. Two of them, on the same day.
-          <em>Which is, at this point, the most accessible form the thing has ever taken. Check which one you're buying.</em></p>
-      </div>
-    </div>
-
-    <p class="src">
-      Sources: New York Post (Oct 14–15, 2020) · Washington Post and New York Times forensic
-      analyses (Mar 2022) · CBS News (Nov 2022) · court filings, United States v. Biden (Jun 2024).
-    </p>
-  </div>
-</section>
-
-<!-- ══ DISTRIBUTION ══ -->
-<section id="airdrop" class="airdrop-sec">
-  <div class="wrap sec">
-    <div class="label">Later distribution</div>
-    <h2>The token comes later.</h2>
-    <p class="sec-intro">
-      $LAPTOP has not been created yet. The organizer plans to distribute tokens manually
-      after launch to contributing wallets, and will decide the amount at that time.
-    </p>
-    <details class="drop">
-      <summary>
-        <span class="drop-word">HOW IT WORKS</span>
-        <span class="drop-cta">Read before contributing</span>
-      </summary>
-      <div class="drop-body">
-        <ol class="crit">
-          <li><span class="i">01</span><div><h3>You choose what to send</h3><p>The contribution goes directly to the organizer's wallet. It is a payment now, not a free eligibility check.</p></div></li>
-          <li><span class="i">02</span><div><h3>The amount of tokens is not fixed</h3><p>No token price, exchange rate or allocation is promised by the contribution form. The organizer decides the later distribution.</p></div></li>
-          <li><span class="i">03</span><div><h3>Keep your wallet and receipt</h3><p>Your confirmed transfer records the sending wallet, recipient and amount on Base. Use a wallet you control so the organizer can identify it for the later distribution.</p></div></li>
-        </ol>
-        <p class="drop-note"><strong>Know what you are confirming.</strong> Connecting a wallet sends nothing.
-          Pressing the send button asks your wallet to confirm a payment of the amount you entered.
-          No tokens are delivered automatically by that payment, and this site cannot undo a confirmed transfer.</p>
-      </div>
-    </details>
-  </div>
-</section>
-
-<!-- ══ THE TOKEN ══ -->
-<section>
-  <div class="wrap sec">
-    <div class="label">The token</div>
-    <h2>Nothing hidden,<br>because there's nothing to hide.</h2>
-    <p class="sec-intro">
-      A token is planned on Base. Its contract has not been created yet.
-      Supply, fees and permissions will only be verifiable after the contract is published.
-    </p>
-
-    <div class="facts">
-      <!-- EDIT: these four are claims about YOUR token. Set them to the truth before publishing. -->
-      <div class="fact">
-        <div class="k">Chain</div>
-        <div class="v">BASE</div>
-        <p>Coinbase's L2. Cheap transactions, one bridge away from Ethereum.</p>
-      </div>
-      <div class="fact">
-        <div class="k">Buy / sell tax</div>
-        <div class="v sm">NOT SET YET</div>
-        <p>Fees will be verifiable after the token contract is published.</p>
-      </div>
-      <div class="fact">
-        <div class="k">Supply</div>
-        <div class="v sm">SET AT LAUNCH</div>
-        <p>Supply and any minting permissions are not confirmed yet.</p>
-      </div>
-      <div class="fact">
-        <div class="k">Liquidity</div>
-        <div class="v sm">SET AT LAUNCH</div>
-        <p>LP status published here with the transaction hash on day one.</p>
-      </div>
-    </div>
-
-    <div class="verify">
-      <div class="v-row">
-        <div class="v-k">Contract address</div>
-        <p class="v-p">The only identifier that means anything. Compare it character by character with the one at the top of this page — tickers repeat, addresses don't.</p>
-        <!-- EDIT: link to your contract on Basescan -->
-        <a class="v-link" aria-disabled="true">Basescan <span class="soon">Sept 9</span></a>
-      </div>
-      <div class="v-row">
-        <div class="v-k">Ownership</div>
-        <p class="v-p">Check whether ownership is renounced and whether any mint, blacklist or fee-change function survives. If it does, the rules can change after you buy.</p>
-        <a class="v-link" aria-disabled="true">Read contract <span class="soon">Sept 9</span></a>
-      </div>
-      <div class="v-row">
-        <div class="v-k">Liquidity</div>
-        <p class="v-p">Whether the LP tokens are burned or locked, and with whom. Unlocked liquidity means it can be pulled — that's the single biggest risk in any launch.</p>
-        <a class="v-link" aria-disabled="true">LP tx <span class="soon">Sept 9</span></a>
-      </div>
-      <div class="v-row">
-        <div class="v-k">Holder distribution</div>
-        <p class="v-p">The organizer will decide the manual distribution after launch. Contributions do not have a fixed token price or guaranteed allocation.</p>
-        <a class="v-link" aria-disabled="true">Holders <span class="soon">Sept 9</span></a>
-      </div>
-    </div>
-
-    <p class="src">Nothing on this page is a substitute for reading the contract yourself.</p>
-  </div>
-</section>
-
-<!-- ══ CONTRIBUTION ══ -->
-<section id="buy">
-  <div class="wrap sec">
-    <div class="label">Contribute · Base network</div>
-    <h2>You choose the amount.</h2>
-    <p class="sec-intro">
-      Send ETH or USDC directly to the organizer's wallet on Base.
-      The token has not been created yet. This payment does not deliver tokens now.
-    </p>
-    <div class="swap">
-      <div class="swap-copy">
-        <h3>Send now. Distribution later.</h3>
-        <ol>
-          <li><span><b>Choose your contribution.</b> Enter exactly how much ETH or USDC you want to send.</span></li>
-          <li><span><b>Review the recipient.</b> Your wallet shows the transfer and network fee before you confirm it.</span></li>
-          <li><span><b>Keep your receipt.</b> The organizer plans to send $LAPTOP manually after launch. The organizer will decide the amount later; there is no fixed rate or guaranteed allocation.</span></li>
-        </ol>
-        <p>Only confirm a payment you intend to make. A confirmed transfer cannot be undone by this site.</p>
-      </div>
-      <div class="swap-panel contribution-panel">
-        <div class="field">
-          <label class="k" for="amount">Amount to send now</label>
-          <div class="field-row">
-            <input id="amount" type="text" inputmode="decimal" placeholder="0.0" autocomplete="off" aria-describedby="contribution-summary">
-            <select id="sell-token" aria-label="Currency to send">
-              <option value="eth">ETH</option>
-              <option value="usdc">USDC</option>
-            </select>
-          </div>
-        </div>
-        <div class="field">
-          <span class="k">Recipient · Base network</span>
-          <code class="wallet-address" id="contribution-recipient">Not set — contributions are closed</code>
-          <a id="contribution-wallet-link" target="_blank" rel="noopener noreferrer" hidden>View recipient on Basescan</a>
-        </div>
-        <div class="field">
-          <span class="k">Your sending wallet</span>
-          <code class="wallet-address" id="contribution-sender">Not connected</code>
-        </div>
-        <p id="contribution-summary">Choose how much to send. The network fee is shown separately in your wallet.</p>
-        <label class="contribution-consent">
-          <input id="contribution-terms" type="checkbox">
-          <span>I understand that I am sending funds to the organizer now. Tokens are planned to be sent manually after launch. The organizer decides the amount later, with no fixed rate or guaranteed allocation.</span>
-        </label>
-        <div class="swap-status" id="contribution-status" role="status" aria-live="polite">Contributions are not open yet.</div>
-        <button class="btn" id="contribute-btn" type="button" disabled>Contributions not open yet</button>
-        <a class="receipt-link" id="contribution-receipt" target="_blank" rel="noopener noreferrer" hidden>View transfer receipt on Basescan</a>
-        <button class="btn ghost" id="contribute-again" type="button" hidden>Make another contribution</button>
-        <p class="swap-foot">You approve each individual payment in your wallet. There is no ongoing permission to spend your funds.</p>
-        <noscript><p>Enable JavaScript to use the contribution form. No payment can be sent from this page while it is disabled.</p></noscript>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ CHART ══ -->
-<section id="chart">
-  <div class="wrap sec">
-    <div class="label">Live market</div>
-    <h2>The chart, once there is one.</h2>
-    <p class="sec-intro">
-      Price, liquidity, holders and every transaction, straight from the pair — not from us.
-      If this panel and the contract address ever disagree, believe the panel.
-    </p>
-    <div class="chart-box">
-      <!-- EDIT on launch day: replace the placeholder below with the DEXScreener embed —
-           <iframe src="https://dexscreener.com/base/<PAIR_ADDRESS>?embed=1&theme=dark&info=0"
-                   title="$LAPTOP price chart" loading="lazy"></iframe>
-           The pair address appears on DEXScreener once liquidity is live. -->
-      <div class="slot">
-        <div class="glyph">◫</div>
-        <p>Chart goes live with the pair on September 9</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ AIRDROP BAND ══ -->
-<section class="band">
-  <div class="wrap band-in">
-    <div>
-      <h2>Read the terms before sending.</h2>
-      <p>Your contribution is sent now. Token amounts are decided by the organizer later.</p>
-    </div>
-    <a class="btn" href="#airdrop">Read distribution terms</a>
-  </div>
-</section>
-
-<!-- ══ FAQ ══ -->
-<section>
-  <div class="wrap sec">
-    <div class="label">Questions</div>
-    <h2>Straight answers.</h2>
-
+<section class="section shell faq-section" id="questions" aria-labelledby="faq-title">
+  <div class="faq-grid">
+    <div class="faq-intro"><p class="section-kicker">Before you confirm</p><h2 id="faq-title">Good questions.<br>Clear answers.</h2><p>The important details, before you decide what to send.</p><a href="#participate">Back to your amount ↗</a></div>
     <div class="faq">
-      <details class="q" open>
-        <summary>Is this connected to Hunter Biden's token?</summary>
-        <p>No. A separate LAPTOP token launches on Base on September 9, 2026 with him on the founding team — the same chain and the same day as this one. This project is independent, deployed from a different wallet, with no affiliation to him or to that team. Two contracts will share this ticker: the address is the only thing that tells them apart, so check it before every transaction.</p>
-      </details>
-      <details class="q">
-        <summary>What happens when I contribute?</summary>
-        <p>You choose an amount of ETH or USDC on Base and confirm a direct payment to the displayed organizer wallet. No tokens are sent to you by that payment. The organizer plans a manual distribution after launch and decides token amounts later, without a fixed rate or guaranteed allocation.</p>
-      </details>
-      <details class="q">
-        <summary>What's the utility?</summary>
-        <p>None. No staking, no revenue share, no roadmap of products, no treasury doing anything clever. It's a memecoin: a ticker, a story, and whatever price a market agrees on.</p>
-      </details>
-      <details class="q">
-        <summary>Who holds the supply?</summary>
-        <p>The token has not been created yet. Its supply and holder distribution are not known. After launch, check the published contract and transfers on Basescan.</p>
-      </details>
-      <details class="q">
-        <summary>Can I lose money?</summary>
-        <p>All of it, fast, and most people who buy memecoins do. $TRUMP peaked near $15 billion in market cap and now trades around $600 million — down about 97% — and that one had a sitting president attached. Contribute only an amount you can afford to lose. No token allocation or return is guaranteed.</p>
-      </details>
+      <details open><summary>Is this a free airdrop claim?</summary><p>No. This form sends a contribution to the organizer now. The organizer plans to distribute $LAPTOP tokens manually after launch. Participation does not set a fixed token price or guarantee an allocation.</p></details>
+      <details><summary>How many tokens will I receive?</summary><p>The organizer will decide the amount after launch. There is no fixed exchange rate between your contribution and the number of tokens, and no allocation is guaranteed.</p></details>
+      <details><summary>Where does my contribution go?</summary><p>Directly to the organizer's wallet shown in the form: <a href="https://basescan.org/address/0x4704c46857f175b12b86428c9b0a3fd32b991af4" target="_blank" rel="noopener noreferrer">0x4704…991af4</a>. You choose ETH or USDC on the Base network. Your wallet will ask you to confirm before sending.</p></details>
+      <details><summary>What do I need in my wallet?</summary><p>ETH or USDC on Base, plus enough ETH on Base to cover the network fee. Open this page in your wallet's browser or use a compatible browser extension. Use a wallet you control so the organizer can identify your sending address for the later distribution.</p></details>
+      <details><summary>Can I change the amount or cancel?</summary><p>You can change the amount before the payment request, or reject the request in your wallet. Once a transfer is confirmed, this site cannot undo it. Contribute only funds you can afford to lose.</p></details>
+      <details><summary>When are the tokens sent?</summary><p>The token has not been created yet. Distribution is planned after launch and will be handled manually by the organizer. An exact distribution time and token amount have not been set.</p></details>
     </div>
   </div>
 </section>
-
-<!-- ══ FOOTER ══ -->
-<footer>
-  <div class="wrap">
-    <p class="foot-word">$LAPTOP<span class="cursor"></span></p>
-    <div class="foot-grid">
-      <p class="risk">
-        <strong>The part people skip.</strong> $LAPTOP is a meme token with no intrinsic value,
-        no utility and no guaranteed return. Contributions go to the organizer now; token distribution
-        is planned for later and its amount is not fixed. Nothing on this page is financial, legal or tax advice. This is an independent
-        community project: it is <strong>not affiliated with, endorsed by or connected to
-        Hunter Biden, the Biden family, or the separate LAPTOP token launched on Base on
-        September 9, 2026</strong>, and all names and events are referenced as public-record
-        commentary. Crypto assets are volatile and largely unregulated — you can lose everything
-        you put in. Check the receiving wallet and amount before confirming a contribution.
-      </p>
-      <div class="links">
-        <!-- EDIT: your real links -->
-        <a aria-disabled="true">X / Twitter <span class="soon">Soon</span></a>
-        <a aria-disabled="true">Telegram <span class="soon">Soon</span></a>
-        <a aria-disabled="true">Basescan <span class="soon">Sept 9</span></a>
-        <a href="#airdrop">Distribution terms</a>
-      </div>
-    </div>
+</main>
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-top"><a class="brand" href="#"><span class="brand-mark" aria-hidden="true">L_</span>$LAPTOP</a><div class="footer-links"><a href="#distribution-terms">Participation terms</a><a href="https://basescan.org/address/0x4704c46857f175b12b86428c9b0a3fd32b991af4" target="_blank" rel="noopener noreferrer">Receiving wallet ↗</a></div></div>
+    <div class="footer-bottom"><p>Independent community project. Not affiliated with any other $LAPTOP token. Contributions carry risk: you may lose the full amount sent. No token allocation, value or return is guaranteed.</p><span>On Base. By choice.</span></div>
   </div>
 </footer>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
 <script>
 /* CONTRIBUTIONS_START
-   Direct, user-confirmed transfers on Base. Set only the public receiving
-   address below. No private keys, approvals, permits, swap API or token
-   distribution are used here. An empty recipient keeps payments disabled.
+   Direct, user-confirmed transfers on Base to the organizer's public address.
+   No private keys, approvals, permits, swap API or token distribution are used.
+   The visitor chooses and reviews the amount before any wallet request.
 */
 (function () {
   'use strict';
   var CONTRIBUTIONS = Object.freeze({
-    recipient: '', // REQUIRED: organizer's public wallet address on Base
+    recipient: '0x4704c46857f175b12b86428c9b0a3fd32b991af4', // Organizer-provided public receiving wallet on Base
     chainId: 8453,
     usdc: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
   });
@@ -917,6 +165,8 @@
 
   var lib = window.ethers, recipient = null, account = null, signer = null;
   var busy = false, submitted = false;
+  var presetButtons = [0, 1, 2, 3].map(function (i) { return $('preset-' + i); }).filter(Boolean);
+  var presetAmounts = { eth: ['0.001', '0.005', '0.01', '0.025'], usdc: ['5', '10', '25', '50'] };
   function say(message, kind) {
     statusEl.textContent = message;
     statusEl.className = 'swap-status' + (kind ? ' ' + kind : '');
@@ -936,18 +186,28 @@
     var payment = null;
     try { if (lib) payment = amount(); } catch (_) {}
     $('contribution-summary').textContent = payment
-      ? payment.display + ' ' + payment.symbol + ' to the organizer, plus the network fee.'
-      : 'Choose how much to send. The network fee is shown separately in your wallet.';
+      ? payment.display + ' ' + payment.symbol
+      : 'Choose your amount';
+    $('flow-step').textContent = submitted ? '03 / PAYMENT' : account ? '03 / REVIEW & CONFIRM' : '01 / CHOOSE YOUR AMOUNT';
+    presetButtons.forEach(function (preset, i) {
+      var value = (presetAmounts[assetEl.value] || presetAmounts.eth)[i];
+      preset.textContent = value;
+      preset.disabled = busy || submitted;
+      preset.setAttribute('aria-label', 'Choose ' + value + ' ' + (assetEl.value === 'usdc' ? 'USDC' : 'ETH'));
+      var active = payment && payment.units === lib.parseUnits(value, assetEl.value === 'usdc' ? 6 : 18);
+      preset.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
     amountEl.disabled = busy || submitted;
     assetEl.disabled = busy || submitted;
     termsEl.disabled = busy || submitted;
     if (submitted) { btn.disabled = true; return; }
     if (busy) { btn.disabled = true; return; }
     btn.textContent = !recipient ? 'Contributions not open yet'
-      : !account ? 'Connect wallet'
+      : !payment ? 'Choose an amount to continue'
+      : !account ? 'Continue with wallet'
       : payment ? 'Send ' + payment.display + ' ' + payment.symbol
       : 'Enter an amount';
-    btn.disabled = !recipient || !lib || Boolean(account && (!payment || !termsEl.checked));
+    btn.disabled = !recipient || !lib || !payment || Boolean(account && !termsEl.checked);
   }
   function showReceipt(hash) {
     if (!/^0x[0-9a-fA-F]{64}$/.test(hash || '')) return;
@@ -976,6 +236,7 @@
     signer = await provider.getSigner();
     account = await signer.getAddress();
     $('contribution-sender').textContent = account;
+    $('contribution-sender-row').hidden = false;
     say('Wallet connected. Review the recipient, amount and distribution terms before sending.', 'ok');
   }
   btn.addEventListener('click', async function () {
@@ -984,9 +245,9 @@
     busy = true;
     render();
     try {
+      payment = amount();
       if (!account) { await connect(); return; }
       if (!termsEl.checked) throw new Error('Read and accept the distribution terms before sending.');
-      payment = amount();
       var chain = await window.ethereum.request({ method: 'eth_chainId' });
       var accounts = await window.ethereum.request({ method: 'eth_accounts' });
       if (BigInt(chain) !== BigInt(CONTRIBUTIONS.chainId) ||
@@ -1039,6 +300,14 @@
       render();
     });
   });
+  presetButtons.forEach(function (preset, i) {
+    preset.addEventListener('click', function () {
+      if (busy || submitted) return;
+      amountEl.value = (presetAmounts[assetEl.value] || presetAmounts.eth)[i];
+      termsEl.checked = false;
+      render();
+    });
+  });
   againEl.addEventListener('click', function () {
     if (busy || !submitted || againEl.hidden) return;
     submitted = false;
@@ -1053,6 +322,7 @@
     if (busy || submitted) return;
     account = null; signer = null; termsEl.checked = false;
     $('contribution-sender').textContent = 'Not connected';
+    $('contribution-sender-row').hidden = true;
     say('Wallet changed. Connect again before sending.', '');
     render();
   }
@@ -1070,7 +340,7 @@
     $('contribution-recipient').textContent = recipient;
     $('contribution-wallet-link').href = 'https://basescan.org/address/' + recipient;
     $('contribution-wallet-link').hidden = false;
-    say('Connect your wallet to contribute. Connecting does not send funds.', '');
+    say('Choose your amount to get started. Connecting your wallet does not send funds.', '');
   } else {
     say(lib ? 'Contributions are not open yet. The receiving wallet has not been set.'
       : 'The wallet connection could not load. Reload the page to try again.', '');
@@ -1078,64 +348,6 @@
   render();
 })();
 /* CONTRIBUTIONS_END */
-
-/* ── countdown to launch ─────────────────────────────────────────────── */
-(function () {
-  // EDIT: your exact launch moment, in UTC. 16:00Z = 18:00 Italian time.
-  // Change the hour to whatever time you actually deploy.
-  var LAUNCH = '2026-09-09T16:00:00Z';
-
-  var box = document.getElementById('countdown');
-  if (!box) return;
-
-  function target() {
-    if (LAUNCH) return new Date(LAUNCH);
-    var now = new Date();
-    var y = now.getUTCFullYear();
-    var t = new Date(Date.UTC(y, 8, 9, 16, 0, 0));            // September 9, 16:00 UTC
-    if (t.getTime() <= now.getTime()) t = new Date(Date.UTC(y + 1, 8, 9, 16, 0, 0));
-    return t;
-  }
-
-  var when = target();
-  var pad = function (n) { return String(n).padStart(2, '0'); };
-
-  function tick() {
-    var diff = when.getTime() - Date.now();
-    if (diff <= 0) {
-      box.classList.add('live');
-      box.innerHTML = '<div class="cd-cell"><div class="cd-n">LIVE NOW</div>' +
-                      '<div class="cd-k">Contract in the bar above</div></div>';
-      return;
-    }
-    var s = Math.floor(diff / 1000);
-    document.getElementById('cd-d').textContent = Math.floor(s / 86400);
-    document.getElementById('cd-h').textContent = pad(Math.floor(s / 3600) % 24);
-    document.getElementById('cd-m').textContent = pad(Math.floor(s / 60) % 60);
-    document.getElementById('cd-s').textContent = pad(s % 60);
-    setTimeout(tick, 1000);
-  }
-  tick();
-})();
-
-/* copy button */
-(function () {
-  var btn = document.getElementById('copy-btn');
-  var txt = document.getElementById('ca-text');
-  if (!btn || !txt) return;
-  btn.addEventListener('click', function () {
-    var value = txt.textContent.trim();
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(value).then(function () {
-        btn.textContent = 'Copied';
-        setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
-      }, function () { btn.textContent = 'Select it'; });
-    } else {
-      btn.textContent = 'Select it';
-    }
-  });
-})();
 </script>
-
 </body>
 </html>

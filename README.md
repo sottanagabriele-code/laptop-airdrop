@@ -1,5 +1,9 @@
 # $LAPTOP — laptop-airdrop
 
+A focused airdrop contribution page: the amount selector, quick presets, recipient
+and participation terms are presented before the wallet confirmation. No amount is
+preselected, and the page does not invent participant counts, urgency or token allocations.
+
 Single-file static site for the planned $LAPTOP token on Base. All application
 CSS and JavaScript are inline in index.html; ethers 6.13.4 loads from the
 existing CDN. No build step or payment backend is required.
@@ -15,13 +19,16 @@ that funds are sent now and the organizer plans a manual token distribution
 after launch, with amounts decided later and no fixed rate or guaranteed allocation.
 Connecting a wallet alone does not request a payment.
 
-The receiving wallet is deliberately unset, so contributions remain disabled.
-Before enabling this flow, set the organizer's exact public receiving address
-in the CONTRIBUTIONS object in index.html:
+The organizer supplied this public receiving address, configured in the CONTRIBUTIONS
+object in index.html:
 
-    recipient: '0x...'
+    recipient: '0x4704c46857f175b12b86428c9b0a3fd32b991af4'
 
-This must be a wallet controlled by the organizer on Base. Do not substitute the
+The existing Base network is retained. ETH is selected by default; USDC remains available.
+The page requires a valid amount before requesting a wallet connection, and requires
+acknowledgment of the distribution terms before requesting the payment.
+
+This is the organizer's designated receiving wallet on Base. Do not substitute the
 future $LAPTOP contract address, USDC's contract address, or a private key.
 Recipient, sender and exact amount are shown before the wallet confirmation.
 ETH and USDC are transferred as selected; this page does not convert currencies.
@@ -44,14 +51,13 @@ network/account changes, rejection, duplicate clicks and uncertain receipts.
 They never access a real wallet or send a real transaction. They do not verify
 browser rendering or prove an on-chain payment succeeds.
 
-Before opening contributions, verify the actual receiving wallet and complete
+The recipient has been supplied by the organizer. Complete
 a user-confirmed end-to-end payment check. Changing main triggers the existing
 Cloudflare publication workflow.
 
 ## Later token launch
 
-The token contract is not needed to receive contributions. Update the contract
-address display, actual token facts, launch timing, social links, video and chart
+The token contract is not needed to receive contributions. Update the published token information and distribution details
 when those details exist. Do not present unverified supply, transfer fees or
 allocation terms as established facts.
 

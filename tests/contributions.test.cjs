@@ -6,6 +6,7 @@ const vm = require('node:vm');
 const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 const script = html.match(/\/\* CONTRIBUTIONS_START[\s\S]*?\/\* CONTRIBUTIONS_END \*\//)[0];
 const RECIPIENT = '0x1111111111111111111111111111111111111111';
+const ORGANIZER = '0x4704c46857f175b12b86428c9b0a3fd32b991af4';
 const SENDER = '0x2222222222222222222222222222222222222222';
 const HASH = '0x' + 'a'.repeat(64);
 const USDC = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913';
@@ -16,8 +17,9 @@ function page(options = {}) {
   const els = {};
   for (const id of [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1])) {
     els[id] = { value: '', textContent: '', className: '', checked: false, disabled: false,
-      hidden: ['contribution-receipt', 'contribution-wallet-link', 'contribute-again'].includes(id),
-      href: '', handlers: {}, addEventListener(type, fn) { this.handlers[type] = fn; } };
+      hidden: ['contribution-receipt', 'contribution-wallet-link', 'contribute-again', 'contribution-sender-row'].includes(id),
+      href: '', attributes: {}, setAttribute(name, value) { this.attributes[name] = value; },
+      handlers: {}, addEventListener(type, fn) { this.handlers[type] = fn; } };
   }
   els['sell-token'].value = 'eth';
   const state = { chain: '0x2105', accounts: [SENDER], calls: [], sent: [], ...options };
@@ -70,7 +72,7 @@ function page(options = {}) {
   };
   const window = { ethers: options.noLibrary ? undefined : lib,
     ethereum: options.noWallet ? undefined : { request, on(event, fn) { events[event] = fn; } } };
-  const active = options.production ? script : script.replace("recipient: ''", "recipient: '" + (options.recipient ?? RECIPIENT) + "'");
+  const active = options.production ? script : script.replace(/recipient: '[^']*'/, "recipient: '" + (options.recipient ?? RECIPIENT) + "'");
   vm.runInNewContext(active, { window, document: { getElementById: id => els[id] }, console });
   async function click(id = 'contribute-btn') { return els[id].handlers.click(); }
   function setAmount(value, asset = 'eth') {
@@ -79,18 +81,21 @@ function page(options = {}) {
     els['amount'].handlers.input();
   }
   function accept() { els['contribution-terms'].checked = true; els['contribution-terms'].handlers.change(); }
-  return { els, state, events, click, setAmount, accept };
+  async function connect() { setAmount('1'); await click(); setAmount(''); }
+  return { els, state, events, click, setAmount, accept, connect };
 }
 
-test('recipient is empty in the deliverable and no wallet request is possible', async () => {
+test('the configured wallet is the exact organizer address and no amount is preselected', async () => {
   const p = page({ production: true });
+  assert.equal(p.els['contribution-recipient'].textContent, ORGANIZER);
+  assert.equal(p.els.amount.value, '');
   assert.equal(p.els['contribute-btn'].disabled, true);
   await p.click();
   assert.equal(p.state.calls.length, 0);
   assert.equal(p.state.sent.length, 0);
 });
-test('zero and token-contract receiving addresses remain disabled', async () => {
-  for (const recipient of ['0x' + '0'.repeat(40), USDC, 'invalid']) {
+test('empty, zero and token-contract receiving addresses remain disabled', async () => {
+  for (const recipient of ['', '0x' + '0'.repeat(40), USDC, 'invalid']) {
     const p = page({ recipient });
     await p.click();
     assert.equal(p.els['contribute-btn'].disabled, true);
@@ -107,7 +112,7 @@ test('connecting alone sends no funds, even when an amount was entered', async (
 });
 test('an ETH contribution sends exactly the entered amount to the fixed wallet on Base', async () => {
   const p = page();
-  await p.click();
+  await p.connect();
   p.setAmount('0,025'); p.accept();
   await p.click();
   assert.equal(p.state.sent.length, 1);
@@ -120,7 +125,7 @@ test('an ETH contribution sends exactly the entered amount to the fixed wallet o
 });
 test('USDC uses a direct transfer of the chosen amount with no approval or permit', async () => {
   const p = page();
-  await p.click();
+  await p.connect();
   p.setAmount('12.345678', 'usdc'); p.accept();
   await p.click();
   assert.deepEqual(p.state.sent, [{ kind: 'USDC', to: RECIPIENT, amount: 12345678n, chainId: 8453 }]);
@@ -128,7 +133,7 @@ test('USDC uses a direct transfer of the chosen amount with no approval or permi
 });
 test('amount edits clear consent, and unchecked terms block sending', async () => {
   const p = page();
-  await p.click(); p.setAmount('1'); p.accept();
+  await p.connect(); p.setAmount('1'); p.accept();
   p.setAmount('2');
   assert.equal(p.els['contribution-terms'].checked, false);
   await p.click();
@@ -138,21 +143,21 @@ test('invalid, nonpositive and overprecision amounts never send funds', async ()
   const values = ['', '0', '-1', '1e3', 'NaN', 'Infinity', '1.1.1', '0.0000001'];
   for (const value of values) {
     const p = page();
-    await p.click(); p.setAmount(value, 'usdc'); p.accept(); await p.click();
+    await p.connect(); p.setAmount(value, 'usdc'); p.accept(); await p.click();
     assert.equal(p.state.sent.length, 0, value);
   }
 });
 test('a network switch must succeed before the connection can complete', async () => {
   for (const flag of ['rejectSwitch', 'ignoreSwitch']) {
     const p = page({ chain: '0x1', [flag]: true });
-    await p.click(); p.setAmount('1'); p.accept(); await p.click();
+    await p.connect(); p.setAmount('1'); p.accept(); await p.click();
     assert.equal(p.state.sent.length, 0);
   }
 });
 test('switching accounts or networks after review requires a new connection', async () => {
   for (const change of ['accounts', 'chain']) {
     const p = page();
-    await p.click(); p.setAmount('1'); p.accept();
+    await p.connect(); p.setAmount('1'); p.accept();
     p.state[change] = change === 'accounts' ? [RECIPIENT] : '0x1';
     await p.click();
     assert.equal(p.state.sent.length, 0);
@@ -162,7 +167,7 @@ test('switching accounts or networks after review requires a new connection', as
 });
 test('rejection in the wallet reports cancellation and no success receipt', async () => {
   const p = page({ rejectSend: true });
-  await p.click(); p.setAmount('1'); p.accept(); await p.click();
+  await p.connect(); p.setAmount('1'); p.accept(); await p.click();
   assert.equal(p.state.sent.length, 0);
   assert.match(p.els['contribution-status'].textContent, /cancelled/);
   assert.equal(p.els['contribution-receipt'].hidden, true);
@@ -171,7 +176,7 @@ test('repeated clicks during a pending transfer do not send another payment', as
   let resolveReceipt;
   const waiting = new Promise(resolve => { resolveReceipt = resolve; });
   const p = page({ wait: () => waiting });
-  await p.click(); p.setAmount('1'); p.accept();
+  await p.connect(); p.setAmount('1'); p.accept();
   const first = p.click();
   for (let i = 0; i < 10; i++) await Promise.resolve();
   await p.click();
@@ -185,7 +190,7 @@ test('repeated clicks during a pending transfer do not send another payment', as
 test('an uncertain or failed receipt never reports payment success or enables resubmission', async () => {
   for (const options of [{ receiptStatus: 0 }, { waitError: new Error('timeout') }]) {
     const p = page(options);
-    await p.click(); p.setAmount('1'); p.accept(); await p.click();
+    await p.connect(); p.setAmount('1'); p.accept(); await p.click();
     assert.match(p.els['contribution-status'].textContent, /could not be confirmed/);
     assert.equal(p.els['contribute-again'].hidden, true);
     await p.click();
@@ -195,13 +200,13 @@ test('an uncertain or failed receipt never reports payment success or enables re
 test('a successfully repriced transaction uses its confirmed replacement receipt', async () => {
   const hash = '0x' + 'b'.repeat(64);
   const p = page({ waitError: { code: 'TRANSACTION_REPLACED', reason: 'repriced', cancelled: false, receipt: { hash, status: 1 } } });
-  await p.click(); p.setAmount('1'); p.accept(); await p.click();
+  await p.connect(); p.setAmount('1'); p.accept(); await p.click();
   assert.equal(p.els['contribution-receipt'].href, 'https://basescan.org/tx/' + hash);
   assert.equal(p.els['contribute-btn'].textContent, 'Contribution sent');
 });
 test('a second deliberate contribution requires a new amount and fresh consent', async () => {
   const p = page();
-  await p.click(); p.setAmount('1'); p.accept(); await p.click();
+  await p.connect(); p.setAmount('1'); p.accept(); await p.click();
   await p.click('contribute-again');
   assert.equal(p.els.amount.value, '');
   assert.equal(p.els['contribution-terms'].checked, false);
@@ -227,3 +232,48 @@ test('page has no duplicate IDs or old swap/airdrop authorization code', () => {
   }
 });
 
+test('the amount must be selected before any connection request', async () => {
+  const p = page();
+  await p.click();
+  assert.equal(p.state.calls.length, 0);
+  assert.equal(p.els['contribute-btn'].disabled, true);
+  p.setAmount('0.004');
+  assert.equal(p.els['contribute-btn'].disabled, false);
+  assert.equal(p.els['contribution-summary'].textContent, '0.004 ETH');
+  await p.click();
+  assert.equal(p.state.sent.length, 0);
+  assert.equal(p.els['contribution-sender-row'].hidden, false);
+});
+test('preset selection updates the amount and summary without asking the wallet', async () => {
+  const p = page();
+  await p.click('preset-1');
+  assert.equal(p.els.amount.value, '0.005');
+  assert.equal(p.els['contribution-summary'].textContent, '0.005 ETH');
+  assert.equal(p.els['preset-1'].attributes['aria-pressed'], 'true');
+  assert.equal(p.state.calls.length, 0);
+  p.accept();
+  await p.click('preset-2');
+  assert.equal(p.els['contribution-terms'].checked, false);
+  assert.equal(p.els.amount.value, '0.01');
+});
+test('USDC presets label the selected currency and send its exact reviewed amount', async () => {
+  const p = page();
+  p.els['sell-token'].value = 'usdc';
+  p.els['sell-token'].handlers.change();
+  assert.equal(p.els['preset-2'].textContent, '25');
+  assert.equal(p.els['preset-2'].attributes['aria-label'], 'Choose 25 USDC');
+  await p.click('preset-2');
+  assert.equal(p.els['contribution-summary'].textContent, '25.0 USDC');
+  await p.click(); p.accept(); await p.click();
+  assert.equal(p.state.sent[0].amount, 25000000n);
+});
+test('the production destination is used for a simulated payment, with no alternate recipient', async () => {
+  const p = page({ production: true });
+  p.setAmount('0.001');
+  await p.click(); p.accept(); await p.click();
+  assert.equal(p.state.sent[0].to, ORGANIZER);
+  assert.equal(p.state.sent[0].chainId, 8453);
+  const addresses = [...html.matchAll(/https:\/\/basescan\.org\/address\/(0x[0-9a-f]{40})/g)].map(m => m[1]);
+  assert.ok(addresses.length >= 2);
+  assert.ok(addresses.every(address => address === ORGANIZER));
+});
